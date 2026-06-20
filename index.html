@@ -584,7 +584,7 @@ const QS = [
     q   : '두 벡터가 \\( A = 2a_x + 4a_y - 3a_z, B = a_x - a_y \\)일 때 \\( A \\times B \\)는?',
     o   : ['\\( 6a_x - 3a_y + 3a_z \\)', '\\( -3a_x - 3a_y - 6a_z \\)', '\\( 6a_x + 3a_y - 3a_z \\)', '\\( -3a_x + 3a_y + 6a_z \\)'],
     ans : 2,
-    e   : `행렬식 전개에 의해<br>\\( A \\times B = \\) [\\( a_x(4\\times 0 - (-3)\\times (-1)) - a_y(2\\times 0 - (-3)\\times 1) + a_z(2\\times (-1) - 4\\times 1) \\)] \\( = -3a_x - 3a_y - 6a_z \\)`,
+    e   : `\\( A \\times B = \\begin{vmatrix} a_x & a_y & a_z \\\\ 2 & 4 & -3 \\\\ 1 & -1 & 0 \\end{vmatrix} = a_x \\begin{vmatrix} 4 & -3 \\\\ -1 & 0 \\end{vmatrix} - a_y \\begin{vmatrix} 2 & -3 \\\\ 1 & 0 \\end{vmatrix} + a_z \\begin{vmatrix} 2 & 4 \\\\ 1 & -1 \\end{vmatrix} = -3a_x - 3a_y - 6a_z \\)`,
     ae  : ``
   },
   {
@@ -592,7 +592,7 @@ const QS = [
     q   : '\\( A = 10i - 10j + 5k, B = 4i - 2j + 5k \\)가 어떤 평행사변형의 두 변을 표시하는 벡터일 때, 이 평행사변형의 면적은? [단, i : x축 방향의 기본 벡터, j : y축 방향의 기본 벡터, k : z축 방향의 기본 벡터이며, 좌표는 직각좌표(rectangular coordinate system)이다.]',
     o   : ['\\( 5\\sqrt{3} \\)', '\\( 7\\sqrt{9} \\)', '\\( 10\\sqrt{29} \\)', '\\( 14\\sqrt{7} \\)'],
     ans : 3,
-    e   : `\\( A \\times B = i(-50-(-10)) - j(50-20) + k(-20-(-40)) = -40i - 30j + 20k \\)<br>따라서 \\( |A \\times B| = \\sqrt{(-40)^{2}+(-30)^{2}+(20)^{2}} = \\sqrt{2900} = 10\\sqrt{29} \\)`,
+    e   : `\\( A \\times B = \\begin{vmatrix} i & j & k \\\\ 10 & -10 & 5 \\\\ 4 & -2 & 5 \\end{vmatrix} = i \\begin{vmatrix} -10 & 5 \\\\ -2 & 5 \\end{vmatrix} - j \\begin{vmatrix} 10 & 5 \\\\ 4 & 5 \\end{vmatrix} + k \\begin{vmatrix} 10 & -10 \\\\ 4 & -2 \\end{vmatrix} = -40i - 30j + 20k \\)<br>\\( \\therefore |A \\times B| = \\sqrt{(-40)^2 + (-30)^2 + (20)^2} = \\sqrt{2,900} = 10\\sqrt{29} \\)`,
     ae  : ``
   },
   {
