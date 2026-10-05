@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║           전기기기 기출문제 HTML 템플릿  —  AI 작업 필수 지침               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  ★ 작업 전 이 주석을 반드시 끝까지 읽을 것 ★                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [1] 수식 렌더링 (KaTeX)                                                     ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 모든 수식은 KaTeX LaTeX 문법으로 작성할 것                               ║
+║  · 절대 ², √, · 같은 유니코드 문자로 대체하지 말 것                         ║
+║                                                                              ║
+║  JS 백틱(`) 문자열 안 수식 작성법:                                           ║
+║    인라인 → \\( 수식 \\)                                                     ║
+║    블록   → \\[ 수식 \\]                                                     ║
+║                                                                              ║
+║  ⚠️  백슬래시와 괄호 사이 공백 절대 금지 — 렌더링 실패                      ║
+║    올바름: \\( E = IR \\)                                                    ║
+║    틀림:   \\ ( E = IR \\ )                                                  ║
+║                                                                              ║
+║  여러 줄 수식(= 기준 정렬)은 반드시 aligned 환경 사용:                       ║
+║    \\[ \\begin{aligned}                                                      ║
+║      E &= V + IR \\\\                                                        ║
+║        &= 100 + 20 \\\\                                                      ║
+║        &= 120                                                                ║
+║    \\end{aligned} \\]                                                        ║
+║    → & 는 = 앞에 붙이는 정렬 기준, \\\\ 는 줄바꿈                           ║
+║                                                                              ║
+║  분수: \\( \\dfrac{분자}{분모} \\)                                           ║
+║                                                                              ║
+║  ⚠️  범분수(분수 안에 또 분수)는 크기를 구분해서 쓸 것                      ║
+║    · 메인(바깥) 분수 → \\dfrac  (크게)                                      ║
+║    · 서브(안쪽) 분수 → \\frac   (작게)                                      ║
+║    올바름: \\( \\dfrac{1+\\frac{a}{b}}{1-\\frac{c}{d}} \\)                   ║
+║    틀림:   \\( \\dfrac{1+\\dfrac{a}{b}}{1-\\dfrac{c}{d}} \\)                 ║
+║            (안쪽까지 \\dfrac 쓰면 서브분수도 커져서 지저분해짐)             ║
+║    안쪽 분수가 2단 이상 겹쳐도(연분수) 가장 바깥 하나만 \\dfrac, 나머지는   ║
+║    전부 \\frac 사용                                                         ║
+║                                                                              ║
+║  루트: \\( \\sqrt{3} \\)                                                     ║
+║  단위: \\( [\\text{V}] \\)                                                   ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [2] 이미지 / 그래프 / 회로도                                                ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 그림·그래프·회로도가 필요하면 절대 직접 그리지 말 것                     ║
+║  · 반드시 사용자에게 이미지 파일을 요청할 것                                ║
+║  · 이미지 파일이 오면 → <img src="파일명.jpg" style="max-width:100%">       ║
+║  · 이미지 없이 진행할 경우 해당 문제 작업 중단 후 요청                      ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [3] 불명확한 내용 처리                                                      ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  · 글자, 숫자, 수식이 불분명하면 작업 전에 반드시 사용자에게 질문할 것      ║
+║  · 추측으로 채우거나 임의로 생략하지 말 것                                  ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [4] 해설 작성 규칙                                                          ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  e 필드 (기본 해설):                                                         ║
+║    · 책에 있는 내용을 빠짐없이 전부 입력할 것                               ║
+║    · 표·수식·단계별 풀이 모두 포함                                           ║
+║    · 마음대로 요약하거나 단어 바꾸지 말 것                                  ║
+║                                                                              ║
+║  ae 필드 (AI 추가 해설):                                                     ║
+║    · AI가 작성하는 보충 설명 (기본 해설과 별도 영역에 표시됨)               ║
+║    · 암기 팁, 직관적 설명, 오답 분석 포함                                   ║
+║    · 수식은 동일한 KaTeX 규칙 적용                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [5] 해설 HTML 요소 사용법                                                   ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  수식 박스:                                                                  ║
+║    <div class="fb0">\\[ 수식 \\]</div>                                       ║
+║                                                                              ║
+║  표 (모바일 스크롤 지원):                                                    ║
+║    <div class="tbl-wrap">                                                    ║
+║      <table class="ctbl">                                                    ║
+║        <tr><th>구분</th><th>중권</th><th>파권</th></tr>                      ║
+║        <tr><td>병렬회로수</td><td>P</td><td>2</td></tr>                      ║
+║      </table>                                                                ║
+║    </div>                                                                    ║
+║                                                                              ║
+║  강조:  <strong>강조할 텍스트</strong>                                       ║
+║  팁박스: <div class="tip">암기 팁 내용</div>                                 ║
+║  줄바꿈: <br>                                                                ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6] 문제 데이터 형식 (QS 배열에 추가)                                       ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  {                                                                           ║
+║    n   : 문제번호 (숫자),       ← 작업 전 반드시 기존 n값 목록 확인 후 결정 ║
+║    q   : '문제 본문' (KaTeX 수식 사용 가능),                                 ║
+║    o   : ['보기①', '보기②', '보기③', '보기④'],  ← 책 원본 순서 그대로     ║
+║    ans : 정답 번호 1~4 (o 배열 기준, 1=첫번째 보기),                         ║
+║    e   : `책 해설 HTML`,          ← 절대 줄이지 말 것                        ║
+║    ae  : `AI 추가해설 HTML`,      ← 아래 ae 작성 기준 참고                   ║
+║    formula : `공식모음 HTML`,     ← 공식이 없는 문제는 이 필드 생략          ║
+║  }                                                                           ║
+║                                                                              ║
+║  ※ n번호 안내                                                                ║
+║    작업 시작 전 "현재 QS 배열의 n값만 나열해줘" 라고 먼저 요청할 것         ║
+║    → AI가 파일 재스캔 없이 중복 없는 번호 바로 결정 가능                    ║
+║    번호는 반드시 연속일 필요 없음 (띄엄띄엄 가능)                           ║
+║                                                                              ║
+║  ※ ae 필드 작성 기준                                                         ║
+║    · 분량: 3~6줄 이상, 충분히 상세하게                                       ║
+║    · 필수 포함: 직관적 설명 or 암기 팁 or 오답 분석 중 2가지 이상           ║
+║    · 책 해설과 내용이 겹치지 않게 보충 관점으로 작성                         ║
+║    · tip 박스 적극 활용: <div class="tip">핵심 암기 내용</div>               ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [6-1] 자주 쓰는 HTML 스니펫 (복붙용)                                        ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  인라인 수식:   \\( 수식 \\)                                                 ║
+║  블록 수식:     \\[ 수식 \\]                                                  ║
+║                                                                              ║
+║  수식 박스:                                                                  ║
+║  `<div class="fb0">\\[ 수식 \\]</div>`                                       ║
+║                                                                              ║
+║  여러줄 수식:                                                                ║
+║  `<div class="fb0">                                                          ║
+║  \\[ \\begin{aligned}                                                        ║
+║    E &= V + IR \\\\                                                          ║
+║      &= 100                                                                  ║
+║  \\end{aligned} \\]</div>`                                                   ║
+║                                                                              ║
+║  표:                                                                         ║
+║  `<div class="tbl-wrap"><table class="ctbl">                                 ║
+║  <tr><th>구분</th><th>A</th><th>B</th></tr>                                  ║
+║  <tr><td>항목</td><td>값</td><td>값</td></tr>                                ║
+║  </table></div>`                                                             ║
+║                                                                              ║
+║  팁 박스:  `<div class="tip">내용</div>`                                     ║
+║  강조:     `<strong>내용</strong>`                                           ║
+║  줄바꿈:   `<br>`                                                            ║
+║                                                                              ║
+║  formula 필드:                                                               ║
+║  `<div class="fb0">\\[ 공식 \\]</div>변수 설명`                              ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [7] 주관식 데이터 형식 (SQS 배열에 추가)                                    ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  A형 (빈칸 채우기):                                                          ║
+║  {                                                                           ║
+║    type: 'fill',                                                             ║
+║    id: 'sqA1',        ← 고유 id, 순서대로 sqA1 sqA2 ...                     ║
+║    title: '제목',                                                            ║
+║    sub: '안내 문구',                                                         ║
+║    sent: `문장 <input class="sq-inp" data-ans="정답" placeholder="　"> 문장` ║
+║  }                                                                           ║
+║                                                                              ║
+║  B형 (공식 암기):                                                            ║
+║  {                                                                           ║
+║    type: 'formula',                                                          ║
+║    id: 'sqB1',        ← 고유 id, 순서대로 sqB1 sqB2 ...                     ║
+║    title: '제목',                                                            ║
+║    hint: 'E = ?',     ← 화면에 표시될 힌트                                  ║
+║    ans: `<div class="fb0">\\[ 수식 \\]</div> 변수 설명`                      ║
+║  }                                                                           ║
+║                                                                              ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  [8] 작업 순서                                                               ║
+║━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━║
+║  1) 제목 수정: <title> 태그와 .hd-title 텍스트 변경                         ║
+║  2) QS 배열의 /* 여기에 문제 추가 */ 위치에 문제 데이터 추가               ║
+║  3) 공식이 있는 문제에는 formula 필드 추가                                  ║
+║  4) 주관식이 있으면 SQS 배열에 추가                                         ║
+║  5) 예시 주석 블록은 건드리지 말 것 (/* ... */ 로 감싸져 있음)              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자계 - 전기기기</title><!-- ★ 제목 수정 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   🔧 사용자 설정값 — 숫자만 바꾸면 아래 CSS 전체에 자동 적용됨
+   (칸 높이를 키우고 싶으면 line-height나 padding 값을 올리세요)
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  /* 색상 테마 */
+  --bg:#0d0f18; --sf:#161929; --sf2:#1d2035; --bd:#272b42;
+  --ac:#5b9cf6; --ac2:#f5c842; --ok:#3ecf8e; --ng:#f05a5a;
+  --tx:#e4e8f5; --tx2:#8e97be; --tx3:#5a6285;
+
+  /* 문제 본문(질문) 글자 */
+  --qt-font-size: .9rem;        /* 문제 글자 크기 */
+  --qt-line-height: 1.65;       /* 문제 줄간격 */
+
+  /* 보기칸 (①②③④ 선택지) — 여기를 키우면 보기칸 높이가 커짐 */
+  --opt-font-size: .84rem;      /* 보기 글자 크기 */
+  --opt-line-height: 1.5;       /* 보기 줄간격 ↑ = 보기칸 높이 ↑ */
+  --opt-padding-y: 7px;         /* 보기 위/아래 여백 ↑ = 보기칸 높이 ↑ */
+  --opt-padding-x: 9px;         /* 보기 좌/우 여백 */
+
+  /* 해설칸 (책 해설 · AI 추가해설) — 여기를 키우면 해설칸 높이가 커짐 */
+  --expl-font-size: .83rem;     /* 해설 글자 크기 */
+  --expl-line-height: 1.6;      /* 해설 줄간격 ↑ = 해설칸 높이 ↑ */
+  --expl-padding-top: 10px;     /* 해설 위쪽 여백 */
+  --expl-padding-x: 15px;       /* 해설 좌/우 여백 */
+  --expl-padding-bottom: 12px;  /* 해설 아래쪽 여백 ↑ = 해설칸 높이 ↑ */
+
+  /* 수식 박스 (fb0 · 공식 박스) */
+  --fb0-line-height: 1.6;       /* 수식 박스 줄간격 */
+  --fb0-padding-y: 8px;         /* 수식 박스 위/아래 여백 */
+  --fb0-padding-x: 14px;        /* 수식 박스 좌/우 여백 */
+
+  /* 블록 수식(\[ ]) 기본 여백 — 최소값만 유지. 분수 여러 줄처럼
+     실제로 더 필요한 경우는 JS(fitMathBoxes)가 자동으로 보충함 */
+  --katex-display-margin-y: .2em;   /* 블록 수식 위/아래 바깥 간격 (KaTeX 기본은 1em이라 넓음) */
+  --katex-display-padding-y: 0px;   /* 블록 수식 위/아래 기본 안쪽 여백 */
+  --katex-html-padding-y: 0px;
+
+  /* 팁 박스(암기 팁) */
+  --tip-padding-y: 8px;
+  --tip-padding-x: 12px;
+
+  /* 카드(문제 하나) 모서리 둥글기 */
+  --card-radius: 12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;}
+
+/* ── 헤더 (컴팩트) ── */
+.hd{
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac);
+  padding:8px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.hd-title{font-size:.95rem;font-weight:900;color:var(--ac);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hd-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
+/* 진도 칩 */
+.progress-chip{
+  font-size:.68rem;font-weight:700;
+  background:var(--sf2);border:1px solid var(--bd);
+  border-radius:20px;padding:3px 9px;
+  color:var(--tx2);white-space:nowrap;
+}
+.progress-chip span{color:var(--ac);}
+
+/* 통계/필터 버튼 */
+.stat-btn{
+  display:flex;align-items:center;gap:3px;
+  background:var(--sf2);border:1px solid var(--bd);border-radius:20px;
+  padding:3px 9px;font-size:.68rem;font-weight:700;
+  cursor:pointer;transition:all .2s;user-select:none;white-space:nowrap;
+  color:var(--tx2);
+}
+@media(hover:hover){.stat-btn:hover{filter:brightness(1.2);}}
+.stat-btn .lbl{font-weight:700;}
+#btnAll.on{border-color:var(--ac);background:rgba(91,156,246,.15);color:var(--ac);}#btnNg.on{border-color:var(--ng);background:rgba(240,90,90,.12);color:var(--ng);}
+#btnWeak.on{border-color:#f5963a;background:rgba(245,150,50,.12);color:#f5963a;}
+
+/* 자주 틀림 드롭다운 */
+.weak-wrap{position:relative;}
+.weak-menu{
+  display:none;position:absolute;top:calc(100% + 6px);right:0;
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:5px 0;min-width:140px;z-index:50;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.weak-menu.open{display:block;}
+.weak-item{
+  padding:8px 14px;font-size:.76rem;color:var(--tx2);cursor:pointer;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.weak-item:hover{background:rgba(245,150,50,.1);color:#f5963a;}
+
+/* 버튼 */
+.fb{background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);padding:4px 11px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:inherit;}
+.fb.on{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fb:active{filter:brightness(1.25);}
+.card[data-rv] .rtbtn{display:none;}
+.fb.danger{color:var(--ng);border-color:rgba(240,90,90,.3);background:rgba(240,90,90,.08);}
+.fb.danger:active{filter:brightness(1.2);}
+
+/* ── 기능버튼 바 ── */
+.sb{padding:7px 18px;background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;}
+.sb-btns{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ── 메인 ── */
+.main{max-width:860px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:11px;}
+
+/* ── 객관식 카드 ── */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--card-radius);overflow:hidden;transition:border-color .2s;}
+.card.answered-ok{border-color:rgba(62,207,142,.35);}
+.card.answered-ng{border-color:rgba(240,90,90,.35);}
+
+/* 문제 헤더 */
+.ch{display:flex;align-items:flex-start;gap:10px;padding:13px 15px 0;}
+.cn{background:var(--ac);color:#fff;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cn.ok{background:var(--ok);}
+.cn.ng{background:var(--ng);}
+.ct{flex:1;padding-bottom:11px;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
+.tg{font-size:.64rem;padding:2px 7px;border-radius:9px;font-weight:500;}
+.tg-g{background:rgba(91,156,246,.14);color:var(--ac);border:1px solid rgba(91,156,246,.28);}
+.tg-s{background:rgba(245,200,66,.13);color:var(--ac2);border:1px solid rgba(245,200,66,.27);}
+
+.tg-at{font-size:.62rem;font-variant-numeric:tabular-nums;border:1px solid transparent;}
+.tg-at-none {background:rgba(255,255,255,.04);color:var(--tx3);border-color:transparent;}          /* 미시도 */
+.tg-at-zero {background:rgba(240,90,90,.12);color:var(--ng);border-color:rgba(240,90,90,.3);}      /* 0% */
+.tg-at-low  {background:rgba(245,150,50,.12);color:#f5963a;border-color:rgba(245,150,50,.3);}      /* 1~49% */
+.tg-at-mid  {background:rgba(245,200,66,.12);color:var(--ac2);border-color:rgba(245,200,66,.3);}   /* 50~99% */
+.tg-at-full {background:rgba(62,207,142,.12);color:var(--ok);border-color:rgba(62,207,142,.3);}    /* 100% */
+.qt{font-size:var(--qt-font-size);line-height:var(--qt-line-height);color:var(--tx);font-weight:500;overflow-x:auto;overflow-y:hidden;max-width:100%;padding-bottom:4px;}
+
+/* 보기 — 항상 표시 */
+.opts{padding:0 15px 12px 57px;display:flex;flex-direction:column;gap:4px;}
+.opt{display:flex;align-items:flex-start;gap:7px;padding:var(--opt-padding-y) var(--opt-padding-x);border-radius:7px;border:1px solid transparent;font-size:var(--opt-font-size);color:var(--tx2);line-height:var(--opt-line-height);cursor:pointer;transition:all .18s;overflow-x:auto;overflow-y:visible;max-width:100%;}
+@media(hover:hover){.opt:hover:not(.lk){background:rgba(91,156,246,.07);border-color:rgba(91,156,246,.2);}}
+.on{font-size:.73rem;font-weight:700;min-width:17px;color:var(--tx3);padding-top:1px;flex-shrink:0;}
+.opt.cor{background:rgba(62,207,142,.09);border-color:rgba(62,207,142,.35);color:var(--ok)!important;}
+.opt.cor .on{color:var(--ok);}
+.opt.wrg{background:rgba(240,90,90,.09);border-color:rgba(240,90,90,.3);color:var(--ng)!important;}
+.opt.wrg .on{color:var(--ng);}
+
+/* 결과 바 (답 선택 전엔 숨김) */
+.res-bar{display:none;border-top:1px solid var(--bd);}
+.res-bar.show{display:block;}
+
+/* 정답 표시 줄 */
+.ansbar{display:flex;align-items:center;gap:9px;padding:8px 15px;background:rgba(62,207,142,.05);border-bottom:1px solid var(--bd);}
+.albl{font-size:.68rem;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.5px;}
+.aval{font-weight:900;font-size:.88rem;color:var(--ok);}
+.rtbtn{margin-left:auto;background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:4px 11px;border-radius:7px;font-size:.73rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.rtbtn:hover{color:var(--ac);border-color:var(--ac);}
+
+/* 해설 */
+.expl{padding:var(--expl-padding-top) var(--expl-padding-x) var(--expl-padding-bottom);font-size:var(--expl-font-size);line-height:var(--expl-line-height);color:var(--tx2);word-break:keep-all;overflow-wrap:break-word;overflow-x:auto;overflow-y:hidden;max-width:100%;}
+.expl strong{color:var(--ac2);font-weight:700;}
+
+/* 추가해설 — expl과 동일 렌더링, 구분선으로만 분리 */
+.ae-expl{border-top:1px dashed var(--bd);margin-top:0;padding-top:11px;}
+.ae-label{font-size:.72rem;font-weight:700;color:var(--ac);margin-bottom:7px;}
+
+/* 수식 박스 */
+.fb0{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac);border-radius:6px;padding:var(--fb0-padding-y) var(--fb0-padding-x);margin:9px 0;line-height:var(--fb0-line-height);overflow-x:auto;max-width:100%;word-break:break-word;}
+.fl{margin:1px 0;white-space:nowrap;}
+
+/* KaTeX — 긴 수식 줄바꿈 (분수 여러 줄 등 세로로 긴 수식이 위아래로 잘리지 않도록 여백을 넉넉히 확보) */
+.katex-display{overflow-x:auto;overflow-y:visible;margin:var(--katex-display-margin-y) 0;padding:var(--katex-display-padding-y) 0;max-width:100%;}
+.katex-display > .katex{max-width:100%;white-space:normal;}
+.katex-display > .katex > .katex-html{max-width:100%;overflow-x:auto;overflow-y:visible;padding:var(--katex-html-padding-y) 0;}
+.katex{font-size:1em;}
+
+/* aligned 환경 — = 기준 정렬 줄바꿈 */
+.katex .base{max-width:100%;}
+
+.tip{background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:6px;padding:var(--tip-padding-y) var(--tip-padding-x);margin-top:8px;font-size:.8rem;color:var(--ac2);word-break:keep-all;}
+.tip::before{content:"💡 ";}
+
+/* 표 — 모바일 스크롤 */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:9px 0;}
+.ctbl{width:100%;border-collapse:collapse;font-size:.79rem;min-width:280px;}
+.ctbl th,.ctbl td{border:1px solid var(--bd);padding:5px 9px;text-align:center;white-space:nowrap;}
+.ctbl th{background:var(--sf2);color:var(--ac);font-weight:700;}
+.ctbl td{color:var(--tx2);}
+.gw{margin:11px 0;text-align:center;overflow-x:auto;}
+
+/* ── 주관식 ── */
+.sq-wrap{max-width:860px;margin:0 auto;padding:0 14px 60px;display:flex;flex-direction:column;gap:11px;}
+.sq-divider{display:flex;align-items:center;gap:10px;padding:4px 0;}
+.sq-divider span{font-size:.75rem;font-weight:700;color:var(--ac2);white-space:nowrap;}
+.sq-divider::before,.sq-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+.sq-card{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.sq-hd{display:flex;align-items:center;gap:10px;padding:12px 15px;}
+.sq-num{background:var(--ac2);color:#111;font-weight:900;font-size:.75rem;min-width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sq-title{font-size:.88rem;font-weight:700;color:var(--tx);}
+.sq-sub{font-size:.7rem;color:var(--tx3);margin-top:2px;}
+.sq-body{padding:13px 15px 15px;border-top:1px solid var(--bd);}
+.sq-sent{font-size:.87rem;line-height:2.6;color:var(--tx);word-break:keep-all;}
+.sq-inp{display:inline-block;min-width:64px;border:none;border-bottom:2px solid var(--ac);background:transparent;color:var(--tx);font-family:inherit;font-size:.87rem;text-align:center;padding:1px 6px;outline:none;transition:all .2s;vertical-align:middle;}
+.sq-inp:focus{border-color:var(--ac2);background:rgba(245,200,66,.05);}
+.sq-inp.cor{color:var(--ok);border-color:var(--ok);background:rgba(62,207,142,.06);}
+.sq-inp.wrg{color:var(--ng);border-color:var(--ng);background:rgba(240,90,90,.06);}
+.sq-btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px;}
+.sq-btn-check{background:var(--ac);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.sq-btn-check:hover{background:#4a87e8;}
+.sq-btn-sub{background:transparent;color:var(--tx3);border:1px solid var(--bd);padding:6px 13px;border-radius:8px;font-size:.76rem;cursor:pointer;font-family:inherit;transition:all .2s;}
+.sq-btn-sub:hover{color:var(--ac);border-color:var(--ac);}
+.sq-score{margin-top:9px;font-size:.83rem;font-weight:700;min-height:1.4em;}
+.sq-score.ok{color:var(--ok);}
+.sq-score.ng{color:var(--ng);}
+.sq-formula-box{background:#0b0e16;border:1px solid var(--bd);border-left:3px solid var(--ac2);border-radius:8px;padding:10px 20px;margin:8px 0;text-align:center;font-size:.95rem;line-height:1.9;overflow-x:auto;}
+.sq-ans-box{background:rgba(62,207,142,.06);border:1px solid rgba(62,207,142,.25);border-radius:8px;padding:13px 17px;margin-top:10px;font-size:.84rem;line-height:1.9;color:var(--tx2);display:none;}
+.sq-ans-box.show{display:block;}
+.sq-ans-box strong{color:var(--ok);}
+.sq-show-btn{background:rgba(62,207,142,.12);color:var(--ok);border:1px solid rgba(62,207,142,.3);padding:7px 18px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px;}
+.sq-show-btn:hover{background:rgba(62,207,142,.22);}
+
+/* ── 햄버거 버튼 ── */
+.hamburger{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;justify-content:center;flex-shrink:0;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s;}
+.hamburger:hover span{background:var(--ac);}
+
+/* ── 오버레이 ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(2px);}
+.menu-overlay.open{display:block;}
+
+/* ── 사이드 패널 ── */
+.menu-panel{position:fixed;top:0;left:-260px;width:240px;height:100%;background:var(--sf);border-right:1px solid var(--bd);z-index:201;display:flex;flex-direction:column;transition:left .25s cubic-bezier(.4,0,.2,1);}
+.menu-panel.open{left:0;}
+.menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);background:var(--sf2);}
+.menu-title{font-size:.9rem;font-weight:700;color:var(--ac);}
+.menu-close{background:none;border:none;color:var(--tx3);font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:5px;transition:color .2s;}
+.menu-close:hover{color:var(--tx);}
+.menu-body{flex:1;padding:10px 0;overflow-y:auto;}
+.menu-nav{display:flex;flex-direction:column;}
+.menu-item{display:block;padding:12px 20px;font-size:.88rem;color:var(--tx2);text-decoration:none;border-left:3px solid transparent;transition:all .18s;}
+.menu-item.on{background:rgba(91,156,246,.12);color:var(--ac);border-left-color:var(--ac);font-weight:700;}
+.menu-item:hover{background:rgba(91,156,246,.08);color:var(--ac);border-left-color:var(--ac);}
+
+/* 북마크 아이콘 */
+.bm-icon{background:none;border:none;font-size:1rem;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;opacity:.2;}
+.bm-icon.on{opacity:1;}
+
+/* ── 공식모음 페이지 뷰 ── */
+.formula-page{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:var(--bg);overflow-y:auto;
+}
+.formula-page.open{display:block;}
+.fp-hd{
+  position:sticky;top:0;z-index:10;
+  background:linear-gradient(135deg,#161929,#0d0f18);
+  border-bottom:2px solid var(--ac2);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.fp-back{
+  background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);
+  padding:5px 12px;border-radius:20px;font-size:.78rem;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.fp-back:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+.fp-title{font-size:.95rem;font-weight:900;color:var(--ac2);}
+.fp-body{max-width:700px;margin:0 auto;padding:16px 14px 60px;display:flex;flex-direction:column;gap:12px;}
+.fc{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.fc-title{
+  padding:10px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);
+  font-size:.78rem;font-weight:700;color:var(--ac2);
+}
+.fc-body{padding:12px 14px;font-size:.84rem;line-height:1.9;color:var(--tx2);}
+.fc-body .fb0{margin:6px 0;}
+.fr{display:flex;justify-content:space-between;align-items:center;gap:6px 12px;flex-wrap:wrap;padding:7px 0;border-bottom:1px dashed var(--bd);}
+.fr:last-child{border-bottom:none;}
+.fl{color:var(--tx);font-weight:600;font-size:.82rem;}
+.fm{margin-left:auto;max-width:100%;overflow:visible;font-size:.92em;line-height:2;}
+.fm .katex,.fm .katex-html{white-space:normal;}
+.fm .katex-html{display:inline;}
+.fc-body{overflow-x:hidden;}
+.fc-body .fm, .fc-body .katex-display, .fc-body .katex-display > .katex, .fc-body .katex-display > .katex > .katex-html, .fc-body .eq-wrap{overflow:visible !important;max-width:100%;}
+.fc-body .katex-display{margin:0 !important;padding:0 !important;text-align:left;}
+.fc-body .katex-display > .katex > .katex-html{padding:0 !important;}
+.fc-body .fl:empty{display:none;}
+.fc-body .fl:empty + .fm{margin-left:0;}
+
+.fsub{color:var(--ac2);font-weight:700;font-size:.8rem;margin-top:8px;}
+.fnote{color:var(--tx3);font-size:.78rem;padding:4px 0;}
+.fc-empty{text-align:center;color:var(--tx3);font-size:.84rem;padding:60px 0;line-height:2;}
+.top-btn{
+  position:fixed;bottom:28px;right:18px;z-index:150;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--sf2);border:1px solid var(--bd);
+  color:var(--tx3);font-size:.85rem;
+  cursor:pointer;font-family:inherit;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,background .2s,color .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.top-btn.visible{opacity:1;pointer-events:auto;}
+.top-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac);}
+
+/* focus 잔상 제거 */
+button:focus,button:focus-visible,
+.stat-btn:focus,.stat-btn:focus-visible{outline:none;}
+.fb:active,.bm-icon:active,.stat-btn:active{filter:brightness(1.2);}
+
+@media(max-width:580px){
+  .qt{font-size:.86rem;}
+  .sq-sent{font-size:.84rem;}
+  .sq-inp{min-width:52px;font-size:.84rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════
+     헤더 — 제목 + 통계 + 버튼
+     ══════════════════════════ -->
+<div class="hd">
+  <button class="hamburger" onclick="toggleMenu()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="hd-title">자계</div><!-- ★ 단원명 수정 -->
+  <div class="hd-right">
+    <span class="progress-chip"><span id="st-done">0</span>/<span id="st-total">0</span></span>
+    <div class="stat-btn" id="btnAll" onclick="setView('all')">전체</div>
+    <div class="stat-btn" id="btnNg" onclick="setView('ng')">오답</div>
+    <div class="weak-wrap">
+      <div class="stat-btn" id="btnWeak" onclick="toggleWeakMenu()">
+        <span class="lbl">자주틀림</span><span style="color:#f5963a;">▾</span>
+      </div>
+      <div class="weak-menu" id="weakMenu">
+        <div class="weak-item" onclick="setView('weak',24)">정확률 24% 이하</div>
+        <div class="weak-item" onclick="setView('weak',49)">정확률 49% 이하</div>
+        <div class="weak-item" onclick="setView('weak',74)">정확률 74% 이하</div>
+      </div>
+    </div>
+    <button class="fb danger" onclick="resetAll()">↺</button>
+  </div>
+</div>
+
+<!-- 메뉴 오버레이 -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- 사이드 메뉴 패널 -->
+<div class="menu-panel" id="menuPanel">
+  <div class="menu-header">
+    <span class="menu-title">메뉴</span>
+    <button class="menu-close" onclick="toggleMenu()">✕</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-nav">
+      <a class="menu-item" id="btnBM" href="#" onclick="toggleBookmark(this);toggleMenu();return false;">⭐ 북마크</a>
+      <a class="menu-item" id="btnFormula" href="#" onclick="toggleMenu();toggleFormulaSheet();return false;">📐 공식모음</a>
+      <div style="height:1px;background:var(--bd);margin:6px 20px;"></div>
+      <a class="menu-item" href="https://dyeon723.github.io/jungigigi/">⚡ 전기기기</a>
+      <a class="menu-item" href="https://dyeon723.github.io/junjagihak/">🔬 전자기학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsfurrhdgkr/">🔌 전력공학</a>
+      <a class="menu-item" href="https://dyeon723.github.io/wjsrlhoiro/">🔄 회로이론</a>
+      <a class="menu-item" href="https://dyeon723.github.io/rovPwkdcl/">🔧 개폐장치</a>
+    </nav>
+  </div>
+</div>
+
+<!-- 공식모음 페이지 뷰 (전체화면 전환) -->
+<div class="formula-page" id="formulaPage">
+  <div class="fp-hd">
+    <button class="fp-back" onclick="toggleFormulaSheet()">← 돌아가기</button>
+    <span class="fp-title">📐 공식모음</span>
+  </div>
+  <div class="fp-body" id="fsBody"></div>
+</div>
+
+<!-- 맨 위로 버튼 -->
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'instant'})" aria-label="맨 위로">↑</button>
+
+<!-- 기능 버튼 -->
+<div class="sb">
+  <div class="sb-btns">
+    <button class="fb" onclick="doRand()" ontouchstart="">🔀 순서섞기</button>
+    <button class="fb" onclick="doShuf()" ontouchstart="">🎲 보기섞기</button>
+    <button class="fb" id="btnReveal" onclick="toggleReveal()">👁 답 전체보기</button>
+  </div>
+</div>
+
+<!-- 객관식 출력 영역 -->
+<div class="main" id="main"></div>
+
+
+<!-- ══════════════════════════════════
+     주관식 섹션 — SQS 배열로 자동 생성
+     ══════════════════════════════════ -->
+<div class="sq-wrap" id="sq-wrap"></div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ★★★  데이터만 이 아래에서 수정하세요  ★★★
+     ══════════════════════════════════════════════════════════ -->
+<script>
+/* ══════════════════════════════════════════════════
+   객관식 문제 데이터  (QS 배열)
+   ──────────────────────────────────────────────────
+   필드 설명:
+     n   : 문제번호 (숫자)
+     q   : 문제 본문 (KaTeX 사용 가능)
+     o   : 보기 배열 ['①내용','②내용','③내용','④내용']
+     ans : 정답 번호 1~4
+     e   : 책 해설 HTML  ← 절대 줄이지 말 것
+     ae  : AI 추가해설 HTML (암기팁·직관적 설명·오답 분석 등 2줄이상 길고 정확하게 적을 것 )
+   ══════════════════════════════════════════════════ */
+const QS = [
+
+  /* ─────────── 여기에 문제 추가 ─────────── */
+
+  {
+    n: 1,
+    q: "자기 인덕턴스가 각각 50[mH], 80[mH]이고 상호 인덕턴스가 60[mH]이며 누설 자속이 없는 두 코일을 가동으로 접속하면 합성 인덕턴스는 몇 [mH]인가?",
+    o: ["10", "30", "200", "250"],
+    ans: 4,
+    e: "\\(L=L_1+L_2+2M[H]\\)<br><br>\\(L=50+80+(2\\times60)=250[mH]\\)",
+    ae: ``
+  },
+
+  {
+    n: 2,
+    q: "어떤 코일의 자체 인덕턴스가 50[mH]일 때 흐르는 전류가 0.4[초] 동안에 12[A]가 변화하였다. 이때 코일에 유기 되는 기전력[V]은?",
+    o: ["3.5", "4", "1.5", "2"],
+    ans: 3,
+    e: "\\(e=-L\\dfrac{\\Delta I}{\\Delta t}[V]\\)<br><br>\\(e=\\dfrac{50\\times10^{-3}\\times12}{0.4}=1.5[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 3,
+    q: "코일의 자체 인덕턴스는 다음 어느 것에 따라 변하는가?",
+    o: ["투자율", "유전율", "도전율", "저항률"],
+    ans: 1,
+    e: "자속 \\(\\Phi=\\dfrac{F}{R}[Wb]\\), \\(\\Phi=\\dfrac{NI}{\\frac{\\ell}{\\mu A}}=\\dfrac{\\mu ANI}{\\ell}[Wb]\\)<br><br>\\(LI=N\\Phi\\), \\(L=\\dfrac{N\\Phi}{I}[H]\\)<br><br>\\(L=\\dfrac{N\\Phi}{I}=\\dfrac{N\\frac{\\mu ANI}{\\ell}}{I}=\\dfrac{\\mu_0\\mu_{s}AN^2}{\\ell}\\) [H]",
+    ae: ``
+  },
+
+  {
+    n: 4,
+    q: "자속밀도 0.5[Wb/m<sup>2</sup>]의 자계내에 자계에 직각으로 놓인 도선이 있다. 여기에 20[A]의 전류를 흘리면 단위 길이에 작용하는 힘[N]은?",
+    o: ["5", "10", "15", "20"],
+    ans: 2,
+    e: "\\(F=BI\\ell\\sin\\theta[N]\\)<br><br>\\(F=0.5\\times20\\times1\\times \\sin90=10[N]\\)",
+    ae: ``
+  },
+
+  {
+    n: 5,
+    q: "맴돌이 전류손은?",
+    o: ["도전률이 클수록 적다.", "주파수에 비례한다.", "최대 자속밀도의 1.6 제곱에 비례한다.", "주파수의 제곱에 비례한다."],
+    ans: 4,
+    e: "\\(P_e=kf^2B_m^2[W]\\)",
+    ae: ``
+  },
+
+  {
+    n: 6,
+    q: "환상철심의 자로 l, 단면적 A, 비투자율 \\(\\mu_{s}\\), 권수 \\(N_1\\), \\(N_2\\)인 두 코일의 상호 인덕턴스는 몇 [H]인가?",
+    o: ["\\(\\dfrac{2\\pi\\mu_{s}lN_1N_2}{A}\\times10^{-7}\\)", "\\(\\dfrac{AN_1N_2}{2\\pi\\mu_{s}l}\\times10^{-7}\\)", "\\(\\dfrac{4\\pi\\mu_{s}AN_1N_2}{l}\\times10^{-7}\\)", "\\(\\dfrac{4\\pi^2\\mu_{s}N_1N_2}{Al}\\times10^{-7}\\)"],
+    ans: 3,
+    e: "\\(v_2=-N_2\\dfrac{\\Delta\\Phi}{\\Delta t}[V]\\)에서 \\(N_2\\Phi=MI_1\\), \\(M=\\dfrac{N_2\\Phi}{I_1}\\)<br><br>\\(\\Phi=BA\\)에서 \\(\\Phi=\\mu HA=\\mu_0\\mu_{s}HA[Wb]\\)<br><br>\\(\\Phi=4\\pi\\times10^{-7}\\mu_{s}\\dfrac{N_1I_1}{\\ell}A[Wb]\\)<br><br>\\(M=\\dfrac{N_2\\Phi}{I_1}=\\dfrac{N_2\\cdot4\\pi\\times10^{-7}\\mu_{s}\\frac{N_1I_1}{\\ell}A}{I_1}=\\dfrac{4\\pi\\mu_{s}AN_1N_2}{\\ell}\\times10^{-7}\\)",
+    ae: ``
+  },
+
+  {
+    n: 7,
+    q: "\\(m_1=4\\times10^{-5}\\)[Wb], \\(m_2=6\\times10^{-3}\\)[Wb], \\(r=10\\)[cm]이면 두 자극 \\(m_1\\), \\(m_2\\)사이에 작용하는 힘은 얼마인가?",
+    o: ["1.52[N]", "152[N]", "24[N]", "2.4[N]"],
+    ans: 1,
+    e: "\\(F=6.33\\times10^4\\dfrac{m_1m_2}{\\mu_{s}r^2}[N]\\)<br><br>\\(F=6.33\\times10^4\\dfrac{4\\times10^{-5}\\times6\\times10^{-3}}{0.1^2}=1.52[N]\\)",
+    ae: ``
+  },
+
+  {
+    n: 8,
+    q: "전동기의 회전방향과 관계가 있는 법칙은?",
+    o: ["렌츠의 법칙", "패러데이의 법칙", "플레밍의 오른손법칙", "플레밍의 왼손법칙"],
+    ans: 4,
+    e: "전동기 - 플레밍의 왼손 법칙<br>발전기 - 플레밍의 오른손 법칙",
+    ae: ``
+  },
+
+  {
+    n: 9,
+    q: "평균 반지름이 10[cm], 코일 감은 회수 10회의 원형 코일에 20[A]의 전류를 흘리게 하려면 코일 중심 자장의 세기는?",
+    o: ["1800[AT/m]", "1600[AT/m]", "1000[AT/m]", "1200[AT/m]"],
+    ans: 3,
+    e: "\\(H=\\dfrac{NI}{2r}[AT/m]\\), \\(H=\\dfrac{10\\times20}{2\\times0.1}=1,000[AT/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 10,
+    q: "공기 중에 거리 2[cm]의 평행 왕복 도선이 있다. 이 도선 사이에 작용하는 힘이 4 × 10<sup>-5</sup>[N/m]이라면 전선에 흐르는 전류는 얼마인가?",
+    o: ["1[A]", "2[A]", "3[A]", "4[A]"],
+    ans: 2,
+    e: "\\(F=\\dfrac{2I_1I_2}{r}\\times10^{-7}\\)에서 \\(I=\\sqrt{\\dfrac{F\\,r}{2\\times10^{-7}}}[A]\\)<br><br>\\(I=\\sqrt{\\dfrac{4\\times10^{-5}\\times2\\times10^{-2}}{2\\times10^{-7}}}=2[A]\\)",
+    ae: ``
+  },
+
+  {
+    n: 11,
+    q: "다음 자성체 중 강자성체가 아닌 것은?",
+    o: ["철[Fe]", "알루미늄[Al]", "니켈[Ni]", "코발트[Co]"],
+    ans: 2,
+    e: "강자성체 - 철, 니켈, 코발트, 망간, 규소 등<br>상자성체 - 알루미늄, 백금, 산소, 공기 등<br>반자성체 - 금, 은, 구리, 아연 등",
+    ae: ``
+  },
+
+  {
+    n: 12,
+    q: "무한장 직선도체에 5[A]의 전류가 흐르고 있을 때 생기는 자장의 세기가 10[AT/m]인 점은 도체로부터 약 몇 [cm] 떨어졌는가?",
+    o: ["4", "6", "8", "12"],
+    ans: 3,
+    e: "\\(H=\\dfrac{I}{2\\pi r}[AT/m]\\)<br><br>\\(r=\\dfrac{I}{2\\pi H}[m]\\)<br><br>\\(r=\\dfrac{5}{2\\times3.14\\times10}=0.079[m]=\\) 약 \\(8[cm]\\)",
+    ae: ``
+  },
+
+  {
+    n: 13,
+    q: "감은 회수 30회의 코일과 쇄교하는 자속이 0.2[sec]동안에 0.2[Wb]에서 0.15[Wb]로 변화하였을 때의 기전력의 크기를 구하라.",
+    o: ["225[V]", "0.04[V]", "7.5[V]", "0.05[V]"],
+    ans: 3,
+    e: "\\(e=-N\\dfrac{\\Delta\\Phi}{\\Delta t}[V]\\), \\(e=\\dfrac{30\\times0.05}{0.2}=7.5[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 14,
+    q: "면적 3[cm<sup>2</sup>]의 면을 진공 중에서 수직으로 0.0036[Wb]의 자속이 지날 때 자속밀도는 얼마인가?",
+    o: ["0.83[Wb/m<sup>2</sup>]", "12[Wb/m<sup>2</sup>]", "6.6×10<sup>-4</sup>[Wb/m<sup>2</sup>]", "10.8[Wb/m<sup>2</sup>]"],
+    ans: 2,
+    e: "\\(B=\\mu H[Wb/m^2]\\), \\(B=\\dfrac{\\Phi}{A}[Wb/m^2]\\)<br><br>\\(B=\\dfrac{0.0036}{3\\times10^{-4}}=12[Wb/m^2]\\)",
+    ae: ``
+  },
+
+  {
+    n: 15,
+    q: "전자유도에 의한 유도 기전력의 크기를 나타내는 것은?",
+    o: ["비오-사바르의 법칙", "렌쯔의 법칙", "패러데이의 법칙", "오른나사의 법칙"],
+    ans: 3,
+    e: "전자유도에 의한 유도 기전력의 크기<br><br>\\(e=N\\dfrac{\\Delta\\Phi}{\\Delta t}[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 16,
+    q: "비오-사바르의 법칙(Biot-Savart's law)은 어떤 관계를 나타내는가?",
+    o: ["전류와 자장의 세기", "기자력과 자속밀도", "전위와 자장의 세기", "기자력과 자장"],
+    ans: 1,
+    e: "\\(\\triangle H=\\dfrac{I\\triangle l}{4\\pi r^2}\\sin\\theta\\,[AT/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 17,
+    q: "발전기에 관계되는 법칙은?",
+    o: ["플레밍의 오른손 법칙", "플레밍의 왼손법칙", "렌쯔의 법칙", "앙페르의 오른나사의 법칙"],
+    ans: 1,
+    e: "전동기 - 플레밍의 왼손 법칙<br>발전기 - 플레밍의 오른손 법칙",
+    ae: ``
+  },
+
+  {
+    n: 18,
+    q: "m[Wb]의 점자극에서 r[m] 떨어진 점의 자기장의 세기는 공기 중에서 몇 [AT/m]인가?",
+    o: ["\\(\\dfrac{m}{r^2}\\)", "\\(\\dfrac{m}{4\\pi r^2}\\)", "\\(6.33\\times10^4\\dfrac{m}{r^2}\\)", "\\(\\dfrac{m}{4\\pi r}\\)"],
+    ans: 3,
+    e: "\\(H=6.33\\times10^4\\dfrac{m}{r^2}[AT/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 19,
+    q: "평균 반지름이 5[cm], 감은 회수 10회의 원형 코일 중심의 자기장의 세기가 200[AT/m]일 때 코일에 흐르는 전류는?",
+    o: ["1[A]", "2[A]", "4[A]", "8[A]"],
+    ans: 2,
+    e: "\\(H=\\dfrac{NI}{2r}[AT/m]\\)<br><br>\\(I=\\dfrac{2rH}{N}[A]\\), \\(I=\\dfrac{2\\times0.05\\times200}{10}=2[A]\\)",
+    ae: ``
+  },
+
+  {
+    n: 20,
+    q: "자력선은 다음과 같은 성질이 있다. 옳지 않은 것은 다음 중 어느 것인가?",
+    o: ["N극에서 나와서 S극에서 끝난다.", "자력선은 서로 교차한다.", "자력선에 그은 접선은 그 접점에서의 자기장의 방향을 나타낸다.", "한 점의 자력선의 밀도는 그 점의 자기장의 세기를 나타낸다."],
+    ans: 2,
+    e: "자력선은 서로 교차하지 않는다.",
+    ae: ``
+  },
+
+  {
+    n: 21,
+    q: "자기 인덕턴스 1[H]의 코일에 10[A]의 전류가 흐르고 있을 때 저축되는 에너지[J]는?",
+    o: ["10", "50", "100", "200"],
+    ans: 2,
+    e: "\\(W=\\dfrac{1}{2}LI^2[J]\\)<br><br>\\(W=\\dfrac{1}{2}\\times1\\times10^2=50[J]\\)",
+    ae: ``
+  },
+
+  {
+    n: 22,
+    q: "그림과 같이 자극 사이에 있는 도체에 전류 I가 흐를 때 힘은 어느 방향으로 작용하는가?<div class=\"gw\"><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB8CAIAAACjYWiqAAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOmQwNzdkZjQ2LWYzOWMtNDFiNy05Yzk2LThkYjgxZmZlZDRjOAAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNoijdGHyA6brqtTu/Rf+T/lAAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6NDVlMzFmYmEtMjQ5Ny00ZWJlLThmNTktNzVmZmQ1ZDIwZjU3bHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaMKmvtGoxII7w0Aw50+9vsAAAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIJ/SL+RGzKy2UGLDFwxj67FtiRYnQUfwFWW22Og8HuBkpGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2j1kHRDoPd1ezfSZs6PTSn5AAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFggx/OqMJmCGjEvemAsZDSTplkXFX4xBJUzucQgNLzSpidkbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTpkMDc3ZGY0Ni1mMzljLTQxYjctOWM5Ni04ZGI4MWZmZWQ0YzgvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDo3ODg4NGFjZS02YWI2LTQ4MjQtYWVmYS1mNDNiZDZhZWRhYzhyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggn9Iv5EbMrLZQYsMXDGPrsW2JFidBR/AVZbbY6Dwe4GSiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIHqz/GMqEaJrImIBn2QqskwdHQMgC06YIT7YSR//+nkNomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIPIwOYxfD+XqjzjiO5y+lCsr0IduncnRWj205ECmJIyYdGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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\" style=\"max-width:100%\"></div>",
+    o: ["(1)", "(2)", "(3)", "(4)"],
+    ans: 1,
+    e: "플레밍의 왼손법칙에 따라 (1)번으로 향함",
+    ae: ``
+  },
+
+  {
+    n: 23,
+    q: "1,000[AT]의 기자력에서 5[Wb]의 자속에 생기는 자기회로의 저항[AT/Wb]은 얼마인가?",
+    o: ["50", "100", "150", "200"],
+    ans: 4,
+    e: "\\(R=\\dfrac{F}{\\Phi}[AT/Wb]\\)<br><br>\\(R=\\dfrac{\\ell}{\\mu A}[AT/Wb]\\)<br><br>\\(R=\\dfrac{F}{\\Phi}=\\dfrac{1,000}{5}=200[AT/Wb]\\)",
+    ae: ``
+  },
+
+  {
+    n: 24,
+    q: "자기 인덕턴스가 각각 100[mH], 400[mH]인 2개의 코일이 있다. 이들 두 코일 사이의 상호 인덕턴스를 측정한 결과 70[mH]였다. 두 코일 사이의 결합계수는 얼마인가?",
+    o: ["0.0035", "0.035", "0.35", "3.5"],
+    ans: 3,
+    e: "결합계수 \\(k=\\dfrac{M}{\\sqrt{L_1L_2}}\\), \\(k=\\dfrac{70}{\\sqrt{100\\times400}}=0.35\\)",
+    ae: ``
+  },
+
+  {
+    n: 25,
+    q: "공기 중에서 1.6 × 10<sup>-4</sup>[Wb]와 2 × 10<sup>-3</sup>[Wb]의 두 자극 사이에 작용하는 힘이 12.66[N]이었다면, 두 자극 사이의 거리[cm]는?",
+    o: ["1", "2", "3", "4"],
+    ans: 4,
+    e: "\\(F=6.33\\times10^4\\dfrac{m_1m_2}{\\mu_{s}r^2}[N]\\)<br><br>\\(r=\\sqrt{\\dfrac{6.33\\times10^4\\times1.6\\times10^{-4}\\times2\\times10^{-3}}{12.66}}[m]\\)<br><br>\\(r=0.04[m]=4[cm]\\)",
+    ae: ``
+  },
+
+  {
+    n: 26,
+    q: "0.5[A]의 전류가 흐르는 코일에 저축된 전자 에너지를 0.2[J] 이하로 하기 위한 인덕턴스[H]는 얼마인가?",
+    o: ["0.8", "1.2", "1.6", "2.2"],
+    ans: 3,
+    e: "\\(W=\\dfrac{1}{2}LI^2[J]\\)<br><br>\\(L=\\dfrac{2W}{I^2}[H]\\), \\(L=\\dfrac{2\\times0.2}{0.5^2}=1.6[H]\\)",
+    ae: ``
+  },
+
+  {
+    n: 27,
+    q: "“전자유도에 의하여 생긴 기전력의 방향은 그 유도전류가 만드는 자속이 항상 원래 자속의 증가 또는 감소를 방해하는 방향이다.”라고 하는 법칙은 무엇인가?",
+    o: ["쿨롱의 법칙", "암페어의 법칙", "줄의 법칙", "렌쯔의 법칙"],
+    ans: 4,
+    e: "\\(e=-N\\dfrac{\\Delta\\Phi}{\\Delta t}[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 28,
+    q: "자속밀도 B, 자장의 세기 H, 투자율 \\(\\mu\\)일 때 단위체적당 저장에너지[J/m<sup>3</sup>] 식이 옳지 않은 것은?",
+    o: ["\\(\\dfrac{1}{2}BH\\)", "\\(\\dfrac{1}{2}\\mu H^2\\)", "\\(\\dfrac{B^2}{2\\mu}\\)", "\\(\\dfrac{BH}{2\\mu}\\)"],
+    ans: 4,
+    e: "\\(W=\\dfrac{1}{2}BH=\\dfrac{1}{2}\\mu H^2=\\dfrac{B^2}{2\\mu}[J/m^3]\\)",
+    ae: ``
+  },
+
+  {
+    n: 29,
+    q: "코일의 자체 인덕턴스는 권수 N의 몇 제곱에 비례하는가?",
+    o: ["N", "N<sup>2</sup>", "N<sup>3</sup>", "N<sup>4</sup>"],
+    ans: 2,
+    e: "\\(LI=N\\Phi\\), \\(L=\\dfrac{N\\Phi}{I}[H]\\)<br><br>\\(L=\\dfrac{N\\Phi}{I}=\\dfrac{N\\frac{\\mu ANI}{\\ell}}{I}=\\dfrac{\\mu_0\\mu_{s}AN^2}{\\ell}\\) [H]",
+    ae: ``
+  },
+
+  {
+    n: 30,
+    q: "자기저항 100[AT/Wb]인 회로에 400[AT]의 기자력을 가할 때 생기는 자속 [Wb]은?",
+    o: ["2", "4", "100", "400"],
+    ans: 2,
+    e: "\\(B=\\mu H=\\dfrac{\\Phi}{A}[Wb/m^2]\\)<br><br>\\(R=\\dfrac{F}{\\Phi}[AT/Wb]\\), \\(\\Phi=\\dfrac{F}{R}[Wb]=\\dfrac{400}{100}=4[Wb]\\)",
+    ae: ``
+  },
+
+  {
+    n: 31,
+    q: "투자율 \\(\\mu\\)의 단위는?",
+    o: ["[AT/m]", "[Wb/m<sup>2</sup>]", "[HT/Wb]", "[H/m]"],
+    ans: 4,
+    e: "\\(\\mu=\\mu_0\\mu_{s}=4\\pi\\times10^{-7}\\mu_{s}[H/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 32,
+    q: "권수 200회의 코일에 5[A]의 전류가 흘러서 0.025[Wb]의 자속이 코일을 지난다고 하면 이 코일 자기인덕턴스[H]는 얼마인가?",
+    o: ["2", "1", "0.5", "0.1"],
+    ans: 2,
+    e: "\\(LI=N\\Phi\\), \\(L=\\dfrac{N\\Phi}{I}=\\dfrac{200\\times0.025}{5}=1[H]\\)",
+    ae: ``
+  },
+
+  {
+    n: 33,
+    q: "점자극 사이의 거리를 2배로 하면 작용력은 몇 배가 되는가?",
+    o: ["0.25", "0.5", "2", "4"],
+    ans: 1,
+    e: "\\(F=\\dfrac{m_1m_2}{4\\pi\\mu r^2}[N]\\)",
+    ae: ``
+  },
+
+  {
+    n: 34,
+    q: "길이 1[cm]당 5회 감은 무한장 솔레노이드가 있다. 이것에 전류를 흘렸을 때 솔레노이드 내부자장의 세기가 100[AT/m]이었다. 이때 솔레노이드에 흐르는 전류는?",
+    o: ["0.25[A]", "0.5[A]", "0.2[A]", "0.3[A]"],
+    ans: 3,
+    e: "\\(H=n_0I[AT/m]\\), \\(I=\\dfrac{H}{n_0}[A]\\), \\(I=\\dfrac{100}{500}=0.2[A]\\)",
+    ae: ``
+  },
+
+  {
+    n: 35,
+    q: "자기회로의 길이 \\(\\ell\\), 단면적 A, 투자율 \\(\\mu\\)일 때 자기 저항 R를 나타낸 것은?",
+    o: ["\\(R=\\dfrac{\\mu\\ell}{A}\\)[AT/Wb]", "\\(R=\\dfrac{A}{\\mu\\ell}\\)[AT/Wb]", "\\(R=\\dfrac{\\ell}{\\mu A}\\)[AT/Wb]", "\\(R=\\dfrac{\\mu A}{\\ell}\\)[AT/Wb]"],
+    ans: 3,
+    e: "\\(R=\\dfrac{\\ell}{\\mu A}[AT/wb]\\)",
+    ae: ``
+  },
+
+  {
+    n: 36,
+    q: "자장의 세기가 H[AT/m]인 곳에 m[Wb]의 자극을 놓았을 때 작용하는 힘이 F[N]라 하면 어떤 식이 성립되는가?",
+    o: ["\\(F=mH\\)", "\\(F=6.33\\times10^4mH\\)", "\\(F=\\dfrac{H}{m}\\)", "\\(F=\\dfrac{m}{H}\\)"],
+    ans: 1,
+    e: "\\(F=mH[N]\\)",
+    ae: ``
+  },
+
+  {
+    n: 37,
+    q: "히스테리시스 곡선이 가로축(횡축)과 만나는 점의 값은 무엇을 나타내는가?",
+    o: ["보자력", "잔류자기", "자속밀도", "자장의 세기"],
+    ans: 1,
+    e: "횡축 - 보자력, 종축 - 잔류자기",
+    ae: ``
+  },
+
+  {
+    n: 38,
+    q: "비투자율이 1,000인 철심의 자속밀도가 1[Wb/m<sup>2</sup>]일 경우 이 철심에 축적된 에너지는 대략 얼마인가?",
+    o: ["300[J/m<sup>3</sup>]", "400[J/m<sup>3</sup>]", "500[J/m<sup>3</sup>]", "600[J/m<sup>3</sup>]"],
+    ans: 2,
+    e: "\\(W=\\dfrac{1}{2}BH=\\dfrac{1}{2}\\mu H^2=\\dfrac{B^2}{2\\mu}[J/m^3]\\)<br><br>\\(W=\\dfrac{B^2}{2\\mu_0\\mu_{s}}=\\dfrac{1}{2\\times4\\pi\\times10^{-7}\\times1,000}=\\) 약 \\(400[J/m^3]\\)",
+    ae: ``
+  },
+
+  {
+    n: 39,
+    q: "반자성체 물질의 특색을 나타낸 것은?",
+    o: ["\\(\\mu_{s}>1\\)", "\\(\\mu_{s}\\gg1\\)", "\\(\\mu_{s}=1\\)", "\\(\\mu_{s}<1\\)"],
+    ans: 4,
+    e: "\\(\\mu_{s}>1\\) 상자성체<br>\\(\\mu_{s}\\gg1\\) 강자성체<br>\\(\\mu_{s}<1\\) 반자성체",
+    ae: ``
+  },
+
+  {
+    n: 40,
+    q: "유기 기전력은 다음의 어느 것에 관계되는가?",
+    o: ["시간에 비례한다.", "쇄교 자속수의 변화에 비례한다.", "쇄교 자속수에 반비례한다.", "쇄교 자속수에 비례한다."],
+    ans: 2,
+    e: "\\(e=-N\\dfrac{\\Delta\\Phi}{\\Delta t}[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 41,
+    q: "히스테리시스손은 최대 자속밀도의 몇 승에 비례하는가?",
+    o: ["1", "1.6", "2", "5"],
+    ans: 2,
+    e: "\\(P_h=\\eta fB_m^{1.6}[W/m^2]\\) 1.6승에 비례한다.",
+    ae: ``
+  },
+
+  {
+    n: 42,
+    q: "자속 밀도 B[Wb/m<sup>2</sup>] 중의 길이 \\(\\ell\\)[m]의 도체가 B에 직각으로 v[m/s]의 속도로 운동할 때 도선에 유기되는 기전력[V]은?",
+    o: ["\\(\\dfrac{Bv}{\\ell}\\)", "\\(B\\ell v\\)", "\\(\\dfrac{1}{B\\ell v}\\)", "\\(\\dfrac{B\\ell}{v}\\)"],
+    ans: 2,
+    e: "\\(e=Blv\\sin\\theta[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 43,
+    q: "자극의 세기가 ±10<sup>-6</sup>[Wb]의 막대 자석의 자기 모멘트가 10<sup>-5</sup>[Wb·m]일 때 막대자석의 길이는 몇 [m]인가?",
+    o: ["1", "10", "100", "1000"],
+    ans: 2,
+    e: "\\(M=m\\ell[Wb\\cdot m]\\),<br><br>\\(l=\\dfrac{M}{m}=\\dfrac{10^{-5}}{10^{-6}}=10[m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 44,
+    q: "다음 중 비오-사바르의 법칙을 나타낸 것은?",
+    o: ["\\(\\Delta H=\\dfrac{I\\Delta\\ell \\sin\\theta}{4\\pi r}\\)(AT/m)", "\\(\\Delta H=\\dfrac{I\\Delta\\ell \\sin\\theta}{4\\pi r^2}\\)(AT/m)", "\\(\\Delta H=\\dfrac{I\\Delta\\ell \\cos\\theta}{4\\pi r}\\)(AT/m)", "\\(\\Delta H=\\dfrac{I\\Delta\\ell \\cos\\theta}{4\\pi r^2}\\)(AT/m)"],
+    ans: 2,
+    e: "\\(\\Delta H=\\dfrac{I\\Delta\\ell \\sin\\theta}{4\\pi r^2}[AT/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 45,
+    q: "공기 중에서 m[Wb]의 자극으로부터 나오는 자력선의 총수는 얼마인가?",
+    o: ["\\(m\\)", "\\(\\dfrac{\\mu_0}{m}\\)", "\\(\\mu_0m\\)", "\\(\\dfrac{m}{\\mu_0}\\)"],
+    ans: 4,
+    e: "공기중에서는 \\(\\mu_{s}\\)가 약 1이므로 자력선 총수는 \\(\\dfrac{m}{\\mu_0}\\)",
+    ae: ``
+  },
+
+  {
+    n: 46,
+    q: "어떤 평등 자장 안에 세기 1.5 × 10<sup>-3</sup>[Wb]의 자극이 있을 때 그 자극에 3[N]의 힘이 작용한다고 한다. 자장의 세기는 얼마인가?",
+    o: ["2 × 10<sup>3</sup>[AT/m]", "4.5 × 10<sup>-3</sup>[AT/m]", "5 × 10<sup>-3</sup>[AT/m]", "4.6 × 10<sup>3</sup>[AT/m]"],
+    ans: 1,
+    e: "\\(F=mH[N]\\), \\(H=\\dfrac{F}{m}[AT/m]\\)<br><br>\\(H=\\dfrac{3}{1.5\\times10^{-3}}=2,000[AT/m]=2\\times10^3[AT/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 47,
+    q: "진공 중에서 같은 크기의 두 자극을 1[m]의 거리에 놓았을 때 작용하는 힘이 6.33 × 10<sup>4</sup>[N]이 되는 자극의 단위는?",
+    o: ["1[N]", "1[Wb]", "1[C]", "1[J]"],
+    ans: 2,
+    e: "자극의 단위는 m[Wb]이다.",
+    ae: ``
+  },
+
+  {
+    n: 48,
+    q: "다음 중 그 내용이 틀린 것은?",
+    o: ["\\(\\mu_0=4\\pi\\times10^{-7}\\)[H/m]", "\\(\\epsilon_0=8.85\\times10^{-12}\\)[F/m]", "\\(\\dfrac{1}{4\\pi\\epsilon_0}=9\\times10^9\\)", "\\(\\dfrac{1}{4\\pi\\mu_0}=1.257\\times10^{-6}\\)"],
+    ans: 4,
+    e: "\\(\\dfrac{1}{4\\pi\\mu_0}=6.33\\times10^4\\)",
+    ae: ``
+  },
+
+  {
+    n: 49,
+    q: "길이 10[cm]의 도선이 자속밀도 1[Wb/m<sup>2</sup>]의 평등자장 안에서 자속과 수직방향으로 3초 동안에 12[m]이동하였다. 이 때 유도되는 기전력은 몇[V]인가?",
+    o: ["0.04[V]", "0.4[V]", "4[V]", "40[V]"],
+    ans: 2,
+    e: "\\(e=B\\ell v\\sin\\theta[V]\\), \\(v[m/s]\\)<br><br>\\(e=1\\times0.1\\times(12/3)\\times \\sin90=0.4[V]\\)",
+    ae: ``
+  },
+
+  {
+    n: 50,
+    q: "진공 중의 투자율 \\(\\mu_0\\)[H/m]는 얼마인가?",
+    o: ["8.855×10<sup>-12</sup>", "9×10<sup>9</sup>", "6.33×10<sup>4</sup>", "4π×10<sup>-7</sup>"],
+    ans: 4,
+    e: "\\(\\mu_0=4\\pi\\times10^{-7}[H/m]\\)<br><br>\\(\\epsilon_0=8.855\\times10^{-12}[F/m]\\)",
+    ae: ``
+  },
+
+  {
+    n: 51,
+    q: "그림과 같이 AB 도체에 같은 방향의 전류가 동일하게 흐를 때 두 도체간의 작용하는 힘은?<div class=\"gw\"><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAABkCAIAAAAJ5UXeAAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjk2N2VkNTMzLWNlOWUtNDUxYS05NzJhLWUwNjA5MTU5OGFiNwAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNokkjWPgGhsLE4ypoJ9efFEAAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6MDIxMmZhYjEtMjcyNi00YTU0LThmYzktMjMzMGE3OGQyOGRjbHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaE4S0XMLEFa9CQR+A/Ondv0AAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIAGEQcHx230xxDZXSE2PVWeCGcibduit51SNXrWyY35LpGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2iKLYn3bXZPei03OfRCOAVwAAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFggwZas7UbQEzJNn82mRiX6OqnXXj+gzslh5AicNgDeD21kbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTo5NjdlZDUzMy1jZTllLTQ1MWEtOTcyYS1lMDYwOTE1OThhYjcvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDo0ZjUyZTAyOC1lZGRhLTQ2NDUtYTdjYS1jYjFhM2Y4OGRlMDJyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggAYRBwfHbfTHENldITY9VZ4IZyJt26K3nVI1etbJjfkuiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIPA2qG3PW9u9ptGCKv1gEh2GesJRbW5es8u+eU+HEOW4omN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIBLYdGcHbXPsVbHrHVWymKHilYTErw+2w8DXF/9gWyvZdGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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\" style=\"max-width:100%\"></div>",
+    o: ["반발력이 작용한다.", "A가 B쪽으로 흡인된다.", "B가 A쪽으로 흡인된다.", "흡인력이 작용한다."],
+    ans: 4,
+    e: "흡인력이 작용한다.",
+    ae: ``
+  },
+
+  {
+    n: 52,
+    q: "무한히 긴 평행 2직선이 있다. 이는 도선에 같은 방향으로 일정한 전류가 흐를 때 상호간에 작용하는 힘은? 단, r은 두 도선 간의 거리이다.",
+    o: ["흡인력이며 r가 클수록 작아진다.", "반발력이며 r가 클수록 작아진다.", "흡인력이며 r가 클수록 커진다.", "반발력이며 r가 클수록 커진다."],
+    ans: 1,
+    e: "\\(F=\\dfrac{2I_1I_2}{r}\\times10^{-7}\\)에서 흡인력이 클수록 \\(r\\)이 작다.",
+    ae: ``
+  },
+
+  {
+    n: 53,
+    q: "자체 인덕턴스의 단위[H]와 같은 단위를 나타낸 것은?",
+    o: ["[H]=[Ω/s]", "[H]=[Wb/V]", "[H]=[A/Wb]", "[H]=\\(\\dfrac{[V][s]}{[A]}\\)"],
+    ans: 4,
+    e: "\\(e=-L\\dfrac{di}{dt}[V]\\)에서 \\(L=\\dfrac{e\\,t}{I}[\\dfrac{Vs}{A}]=[H]\\)",
+    ae: ``
+  },
+
+  {
+    n: 54,
+    q: "평균 반지름 \\(r\\)[m]의 환상솔레노이드에 \\(I\\)[A]의 전류가 흐를 때, 내부 자계가 \\(H\\)[AT/m]이었다. 권수 \\(N\\)은?",
+    o: ["\\(\\dfrac{HI}{2\\pi r}\\)", "\\(\\dfrac{2\\pi r}{HI}\\)", "\\(\\dfrac{2\\pi rH}{I}\\)", "\\(\\dfrac{I}{2\\pi rH}\\)"],
+    ans: 3,
+    e: "\\(H=\\dfrac{NI}{2\\pi r}[AT/m]\\), \\(N=\\dfrac{2\\pi rH}{I}[T]\\)",
+    ae: ``
+  },
+
+  {
+    n: 55,
+    q: "공기 중 자속밀도가 40[Wb/m<sup>2</sup>]인 평등 자장 내에 길이 30[cm]의 도체를 자장의 방향과 30° 각도로 놓고 이 도체에 10[A]의 전류를 흘리면 이때 도체에 작용하는 힘[N]은?",
+    o: ["60", "103.8", "600", "1038"],
+    ans: 1,
+    e: "\\(F=BlI\\sin\\theta[N]=40\\times0.3\\times10\\times \\sin30=60\\)",
+    ae: ``
+  },
+
+  /* 예시 문제 (참고용 — 실제 사용 시 아래 주석 해제 말고 위에 새로 추가할 것)
+  {
+    n: 1,
+    q: '직류기를 구성하고 있는 3요소는?',
+    o: [
+      '전기자, 계자, 슬립링',
+      '전기자, 계자, 정류자',
+      '전기자, 정류자, 브러시',
+      '전기자, 계자, 보상권선'
+    ],
+    ans: 2,
+    e: `<strong>직류기 3요소</strong> : 전기자, 계자, 정류자<br>
+교류기 3요소 : 전기자, 계자, 슬립링`,
+    ae: `<strong>왜 슬립링이 아닌 정류자인가?</strong><br>
+직류기는 코일에서 발생한 교류를 <strong>직류로 변환</strong>하는 정류자(Commutator)가 핵심 부품입니다.<br>
+슬립링은 교류기(동기기 등)에서 회전체와 외부 회로를 전기적으로 연결할 때 사용합니다.<br><br>
+<strong>오답 분석</strong><br>
+① 슬립링 → 교류기 부품이라 오답<br>
+③ 브러시는 정류자와 함께 쓰이지만 3요소에 포함되지 않음<br>
+④ 보상권선은 전기자반작용 억제용 부품으로 필수 3요소가 아님`
+  },
+  {
+    n: 2,
+    q: '기전력 \\(E\\,[\\text{V}]\\), 내부저항 \\(r\\,[\\Omega]\\), 부하저항 \\(R\\,[\\Omega]\\)일 때 부하전류 \\(I\\,[\\text{A}]\\)는?',
+    o: [
+      '\\(\\dfrac{E}{R}\\)',
+      '\\(\\dfrac{E}{r}\\)',
+      '\\(\\dfrac{E}{R+r}\\)',
+      '\\(\\dfrac{E}{R-r}\\)'
+    ],
+    ans: 3,
+    e: `<div class="fb0">
+\\[ \\begin{aligned} I &= \\dfrac{E}{R+r} \\;[\\text{A}] \\end{aligned} \\]
+</div>
+E : 기전력 &nbsp; R : 부하저항 &nbsp; r : 내부저항<br>
+직류발전기의 부하전류는 기전력을 (부하저항 + 내부저항)으로 나눈 값이다.`,
+    formula: `<div class="fb0">\\[ I = \\dfrac{E}{R+r} \\;[\\text{A}] \\]</div>
+E : 기전력, R : 부하저항, r : 내부저항`,
+    ae: `<strong>키르히호프 전압 법칙으로 이해하기</strong><br>
+폐회로에서 기전력 = 전압 강하의 합이므로<br>
+\\[ \\begin{aligned} E &= IR + Ir \\\\ &= I(R+r) \\end{aligned} \\]
+따라서 \\( I = \\dfrac{E}{R+r} \\)<br><br>
+<strong>암기 팁</strong><br>
+분모는 <strong>"회로에 있는 저항 전부"</strong>의 합이라고 기억하면 됩니다.<br>
+R만 있으면 \\( \\dfrac{E}{R} \\), 내부저항도 직렬이면 \\( \\dfrac{E}{R+r} \\).`
+  },
+  {
+    n: 3,
+    q: '전기자도체의 굵기, 권수, 극수가 모두 같을 때 단중 파권이 단중 중권에 비교하여 다른 것은?',
+    o: [
+      '대전류, 고전압',
+      '소전류, 고전압',
+      '대전류, 저전압',
+      '소전류, 저전압'
+    ],
+    ans: 2,
+    e: `<table class="ctbl">
+<tr><th>구분</th><th>중권(lap winding)</th><th>파권(wave winding)</th></tr>
+<tr><td>병렬회로수(a)</td><td>P (극수)</td><td>2</td></tr>
+<tr><td>브러시수</td><td>P (극수)</td><td>2</td></tr>
+<tr><td>용도</td><td>저전압·대전류</td><td>고전압·소전류</td></tr>
+<tr><td>균압환</td><td>필요</td><td>불필요</td></tr>
+</table>`,
+    ae: `<strong>직관적으로 이해하기</strong><br>
+중권은 병렬회로가 P개(극수만큼)이므로 전류가 여러 경로로 나뉘어 흐름 → <strong>대전류에 유리</strong><br>
+파권은 병렬회로가 단 2개뿐이므로 전류는 적지만 전압이 높게 누적됨 → <strong>고전압에 유리</strong><br><br>
+<strong>암기 팁</strong><br>
+파(波)권 = 파도처럼 높다 = <strong>고전압</strong><br>
+중(重)권 = 여러 경로 = <strong>대전류</strong>`
+  },
+  */
+
+];
+
+
+/* ══════════════════════════════════════════════════
+   주관식 문제 데이터  (SQS 배열)
+   ──────────────────────────────────────────────────
+   A형(빈칸): { type:'fill', id:'sqA1', title, sub, sent }
+   B형(공식): { type:'formula', id:'sqB1', title, hint, ans }
+   ══════════════════════════════════════════════════ */
+const SQS = [
+
+  /* ─────────── 여기에 주관식 추가 ─────────── */
+
+  /* 예시 (참고용 — 실제 사용 시 위에 새로 추가할 것)
+  {
+    type: 'fill',
+    id: 'sqA1',
+    title: '직류발전기의 종류 — 접속 방식',
+    sub: '빈칸에 알맞은 말을 입력하고 채점하기를 눌러보세요',
+    sent: `
+      ⊙ <strong style="color:var(--ac)">분권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="병렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">직권기</strong> : 계자권선과 전기자가
+      <input class="sq-inp" data-ans="직렬" placeholder="　　"> 로 접속된 것이다.<br><br>
+      ⊙ <strong style="color:var(--ac)">복권기</strong> : 직권계자권선과 분권계자권선이 전기자와
+      <input class="sq-inp" data-ans="직·병렬" placeholder="　　　"> 로 접속된 것이다.
+    `
+  },
+  {
+    type: 'formula',
+    id: 'sqB1',
+    title: '직류발전기 유기기전력 공식',
+    hint: 'E = ?',
+    ans: `
+      <div class="fb0" style="border-color:var(--ac2);text-align:center;">
+        <div class="fl">\\( E = \\dfrac{PZ\\phi N}{60a} \\;[\\text{V}] \\)</div>
+      </div>
+      <div style="margin-top:10px;line-height:2.0;font-size:.83rem;">
+        · <strong>P</strong> : 극수<br>
+        · <strong>Z</strong> : 총 도체수<br>
+        · <strong>φ</strong> : 1극당 자속 [Wb]<br>
+        · <strong>N</strong> : 회전수 [rpm]<br>
+        · <strong>a</strong> : 병렬 회로수
+      </div>
+    `
+  },
+  */
+
+];
+
+
+/* ═══════════════════════════════════════════════════
+   엔진 — 수정 불필요
+   ═══════════════════════════════════════════════════ */
+
+/* ── 상수 ── */
+const N = ['①','②','③','④'];
+const KATEX_OPTS = {
+  delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+  throwOnError:false
+};
+
+/* ── 수식 렌더링 + 칸 높이 자동조절 ──
+   KaTeX 렌더링 직후, 수식 글자가 실제로 그려진 위/아래 끝을 재서
+   칸 밖으로 삐져나온(=잘리는) 만큼만 여백을 더해준다.
+   안 잘리는 수식은 여백을 전혀 추가하지 않는다. */
+function fitMathBoxes(scope){
+  const root = scope || document;
+  const targets = Array.from(root.querySelectorAll(
+    '.fb0, .sq-formula-box, .katex-display, .katex-display > .katex > .katex-html, .opt, .expl, .qt'
+  )).reverse();               /* 안쪽 요소부터 처리 (중복 여백 방지) */
+  targets.forEach(el=>{
+    el.style.paddingTop = '';
+    el.style.paddingBottom = '';
+  });
+  targets.forEach(el=>{
+    const box = el.getBoundingClientRect();
+    if(!box.height) return;
+    let top = Infinity, bottom = -Infinity;
+    el.querySelectorAll('.katex-html *').forEach(n=>{
+      if(n.classList.contains('pstrut') || n.classList.contains('strut')) return;
+      const r = n.getBoundingClientRect();
+      if(!r.height) return;
+      if(r.top < top) top = r.top;
+      if(r.bottom > bottom) bottom = r.bottom;
+    });
+    if(top === Infinity) return;
+    const cs = getComputedStyle(el);
+    const needTop    = Math.max(0, Math.ceil(box.top - top));        /* 위로 삐져나온 만큼 */
+    const needBottom = Math.max(0, Math.ceil(bottom - box.bottom));  /* 아래로 삐져나온 만큼 */
+    if(needTop)    el.style.paddingTop    = (parseFloat(cs.paddingTop)    + needTop    + 1) + 'px';
+    if(needBottom) el.style.paddingBottom = (parseFloat(cs.paddingBottom) + needBottom + 1) + 'px';
+  });
+}
+/* ── 해설/보기 속 긴 계산식을 '=' 기준으로 자동 줄바꿈 ──
+   \( ... \) 안에 '=' 이 2개 이상인 식만 대상으로 하고,
+   렌더링 후 실제 너비를 재서 한 줄에 다 안 들어갈 때만
+   '=' 단위로 최대한 채워서 다음 줄로 넘긴다.
+   예) 1=24*32=113%282 → 다음 줄 =2782=1991
+   (중괄호 { } 안에 있는 '=' 은 자르는 기준에서 제외) */
+
+/* 1) 렌더링 전: 대상 식을 표시(span)로 감싸서 원본 LaTeX를 보관 */
+function markLongEquations(el){
+  el.innerHTML = el.innerHTML.replace(/\\\(([\s\S]*?)\\\)/g, (whole, tex)=>{
+    let depth = 0, eq = 0;
+    for(const c of tex){
+      if(c === '{') depth++;
+      else if(c === '}') depth--;
+      else if(c === '=' && depth === 0) eq++;
+    }
+    if(eq < 2) return whole;
+    const esc = tex.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    return '<span class="eq-wrap" data-tex="' + esc + '">' + whole + '</span>';
+  });
+}
+
+/* 중괄호 밖의 '=' 을 기준으로 최상위 항목만 분리 */
+function topLevelEqParts(tex){
+  const parts = []; let depth = 0, cur = '';
+  for(const c of tex){
+    if(c === '{') depth++;
+    else if(c === '}') depth--;
+    if(c === '=' && depth === 0){ parts.push(cur); cur = ''; }
+    else cur += c;
+  }
+  parts.push(cur);
+  return parts.map(s=>s.trim()).filter(Boolean);
+}
+
+/* 화면 밖(숨겨진 곳)에 실제로 그려보고 너비(px)를 재는 도우미 */
+let _eqProbe;
+function measureTexWidth(tex, refEl){
+  if(!_eqProbe){
+    _eqProbe = document.createElement('div');
+    _eqProbe.style.cssText = 'position:fixed;visibility:hidden;left:-99999px;top:0;white-space:nowrap;';
+    document.body.appendChild(_eqProbe);
+  }
+  _eqProbe.style.fontSize = getComputedStyle(refEl).fontSize;
+  try{ katex.render(tex, _eqProbe, {throwOnError:false, displayMode:true}); }
+  catch(e){ _eqProbe.textContent = tex; }
+  return _eqProbe.getBoundingClientRect().width;
+}
+
+/* 2) 렌더링 후: 실제로 칸 너비를 넘는 식만 '=' 기준으로 줄바꿈 */
+function reflowLongEquations(scope){
+  (scope || document).querySelectorAll('span.eq-wrap[data-tex]').forEach(span=>{
+    if(span.dataset.reflowed) return;
+    span.dataset.reflowed = '1';
+
+    const host = span.closest('.expl, .opt, .qt, .fb0, .sq-formula-box') || span.parentElement;
+    if(!host) return;
+    const hcs = getComputedStyle(host);
+    const maxW = host.clientWidth - parseFloat(hcs.paddingLeft||0) - parseFloat(hcs.paddingRight||0) - 2;
+    if(maxW <= 0) return;
+    if(span.getBoundingClientRect().width <= maxW) return; /* 이미 한 줄에 들어가면 그대로 둠 */
+
+    const tex = span.getAttribute('data-tex');
+    const parts = topLevelEqParts(tex);
+    if(parts.length < 3) return; /* '=' 1개 이하는 줄바꿈 의미 없음 */
+
+    const lineGroups = []; let cur = [parts[0]];
+    for(let i=1;i<parts.length;i++){
+      const trial = cur.concat(parts[i]);
+      if(measureTexWidth(trial.join('='), span) <= maxW){ cur = trial; }
+      else { lineGroups.push(cur); cur = [parts[i]]; }
+    }
+    lineGroups.push(cur);
+    if(lineGroups.length < 2) return; /* 결국 한 줄에 다 들어가면 그대로 둠 */
+
+    const rows = lineGroups.map((g,i)=>{
+      if(i === 0) return g.length > 1 ? g[0] + ' &= ' + g.slice(1).join(' = ') : g[0];
+      return '&= ' + g.join(' = ');
+    });
+    const alignedTex = '\\begin{aligned} ' + rows.join(' \\\\ ') + ' \\end{aligned}';
+
+    const block = document.createElement('div');
+    try{ katex.render(alignedTex, block, {throwOnError:false, displayMode:true}); }
+    catch(e){ return; } /* 실패하면 원래 한 줄짜리 식을 그대로 둠 */
+    span.replaceWith(block);
+  });
+}
+
+function renderMath(el){
+  markLongEquations(el);
+  renderMathInElement(el, KATEX_OPTS);
+  reflowLongEquations(el);
+  fitMathBoxes(el);
+}
+/* 폰트 로딩이 늦게 끝나 높이 계산이 어긋나는 경우를 대비해 한 번 더 보정 */
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(()=>fitMathBoxes());
+}
+window.addEventListener('resize', ()=>fitMathBoxes());
+const STORE_KEY = 'egki_' + document.title.replace(/\s/g,'_');
+
+/* ── 상태 변수 ── */
+let wrongSet    = new Set();
+let okSet       = new Set();
+let bookmarkSet = new Set();
+let shufMap     = {};
+let selectedMap = {};
+let attemptMap  = {};  /* attemptMap[n] = {try, ok} */
+let randMode    = false;
+let randedOrder = null;  /* 섞인 문제 순서 저장 */
+let shufMode    = false;
+let bmMode      = false;
+let viewMode    = 'all';
+let weakPctActive = null;
+let lastSeenN   = null;
+
+function shuf(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+/* 시도 비율 → CSS 클래스 */
+function atCls(at){
+  if(!at||at.try===0) return 'tg-at-none';
+  const r=at.ok/at.try;
+  if(r<0.2)  return 'tg-at-zero';
+  if(r<0.5)  return 'tg-at-low';
+  if(r<0.8)  return 'tg-at-mid';
+  return 'tg-at-full';
+}
+function atHtml(at){
+  const cls=atCls(at);
+  const txt=at?`${at.ok}/${at.try}`:'-/-';
+  return `<span class="tg tg-at ${cls}">${txt}</span>`;
+}
+
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      wrongSet:[...wrongSet],
+      okSet:[...okSet],
+      selectedMap,
+      attemptMap,
+      bookmarkSet:[...bookmarkSet],
+      lastN: lastSeenN
+    }));
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    const validNs=new Set(QS.filter(q=>q.n!=null).map(q=>q.n));
+    wrongSet   = new Set((s.wrongSet||[]).filter(n=>validNs.has(n)));
+    okSet      = new Set((s.okSet||[]).filter(n=>validNs.has(n)));
+    bookmarkSet= new Set((s.bookmarkSet||[]).filter(n=>validNs.has(n)));
+    selectedMap= Object.fromEntries(Object.entries(s.selectedMap||{}).filter(([k])=>validNs.has(parseInt(k))));
+    const am=s.attemptMap||{};
+    Object.keys(am).filter(k=>validNs.has(parseInt(k))).forEach(k=>{ attemptMap[parseInt(k)]=am[k]; });
+    lastSeenN  = validNs.has(s.lastN)?s.lastN:null;
+  }catch(e){}
+}
+
+/* 통계 업데이트 */
+function upStat(){
+  const done=okSet.size+wrongSet.size;
+  document.getElementById('st-done').textContent=done;
+  document.getElementById('st-total').textContent=QS.length;
+}
+
+/* 전체 렌더 (DOM 재구성) */
+function render(){
+  let qs = randedOrder
+    ? randedOrder.map(n=>QS.find(q=>q.n===n)).filter(Boolean)
+    : QS.filter(q=>q.n!=null);
+  document.getElementById('main').innerHTML=qs.map(mkCard).join('');
+  renderMath(document.getElementById('main'));
+  if(viewMode!=='all') applyViewFilter(viewMode, weakPctActive);
+  upStat();
+}
+
+/* ── 뷰 필터 ── */
+
+/* 순수 DOM show/hide — alert 없음, render()에서 내부 호출용 */
+function applyViewFilter(mode, weakPct){
+  document.querySelectorAll('.card').forEach(c=>{
+    const n=parseInt(c.dataset.n);
+    let show=true;
+    if(mode==='ok')   show=okSet.has(n);
+    if(mode==='ng')   show=wrongSet.has(n);
+    if(mode==='bm')   show=bookmarkSet.has(n);
+    if(mode==='weak'){
+      const at=attemptMap[n];
+      show=!!at&&at.try>0&&(at.ok/at.try*100)<=weakPct;
+    }
+    c.style.display=show?'':'none';
+  });
+  /* 오답 뷰: 카드를 초기화해 다시 풀 수 있게 */
+  if(mode==='ng'){
+    wrongSet.forEach(n=>{
+      const card=document.getElementById('q'+n);
+      if(!card) return;
+      card.querySelectorAll('.opt').forEach(o=>o.className='opt');
+      const res=document.getElementById(`q${n}_res`);
+      if(res) res.classList.remove('show');
+      card.className='card answered-ng';
+      const cn=card.querySelector('.cn');
+      if(cn) cn.className='cn ng';
+    });
+  }
+}
+
+/* 버튼 강조 업데이트 */
+function updateViewBtns(mode, weakPct){
+  ['btnAll','btnNg','btnWeak'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  if(mode==='all')        document.getElementById('btnAll').classList.add('on');
+  else if(mode==='ng')    document.getElementById('btnNg').classList.add('on');
+  else if(mode==='weak'){
+    document.getElementById('btnWeak').classList.add('on');
+    document.querySelector('#btnWeak .lbl').textContent=`≤${weakPct}%`;
+  }
+}
+
+/* 사용자 클릭 진입점 — 검증 + 상태 저장 + 필터 적용 */
+function setView(mode, weakPct){
+  document.getElementById('weakMenu').classList.remove('open');
+  /* 빈 상태 경고 */
+  if(mode==='ok'   && okSet.size===0)   {alert('아직 맞힌 문제가 없어요!');return;}
+  if(mode==='ng'   && wrongSet.size===0){alert('아직 틀린 문제가 없어요!');return;}
+  if(mode==='weak'){
+    const has=QS.some(q=>{const at=attemptMap[q.n];return at&&at.try>0&&(at.ok/at.try*100)<=weakPct;});
+    if(!has){alert(`정확률 ${weakPct}% 이하인 문제가 없어요! 먼저 풀어보세요 😊`);return;}
+  }
+  viewMode=mode;
+  weakPctActive=(mode==='weak')?weakPct:null;
+  updateViewBtns(mode, weakPct);
+  applyViewFilter(mode, weakPct);
+}
+
+/* 자주틀림 드롭다운 */
+function toggleWeakMenu(){
+  document.getElementById('weakMenu').classList.toggle('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.weak-wrap')) document.getElementById('weakMenu').classList.remove('open');
+});
+
+/* ── 카드 생성 ── */
+function mkCard(q){
+  const id='q'+q.n;
+  const isOk=okSet.has(q.n),isNg=wrongSet.has(q.n);
+  const answered=isOk||isNg;
+  const tags=``;
+  const at=attemptMap[q.n];
+  const atTag=atHtml(at);
+
+  let opts=[...q.o],dispAns=q.ans;
+  if(shufMode){
+    if(!shufMap[id]){const sh=shuf([0,1,2,3]);shufMap[id]={order:sh,newAns:sh.indexOf(q.ans-1)+1};}
+    opts=shufMap[id].order.map(i=>q.o[i]);dispAns=shufMap[id].newAns;
+  }
+
+  const savedSel=selectedMap[q.n]?.sel??null;
+
+  const optHtml=opts.map((o,i)=>{
+    const pos=i+1;
+    let cls='opt';
+    if(answered){
+      cls+=' lk';
+      if(pos===dispAns) cls+=' cor';
+      if(savedSel!==null && pos===savedSel && savedSel!==dispAns) cls+=' wrg';
+    }
+    return `<div class="${cls}" id="${id}_p${pos}" onclick="sel('${id}',${pos},${dispAns})">
+      <span class="on">${N[i]}</span><span>${o}</span>
+    </div>`;
+  }).join('');
+
+  const resShow=answered?'show':'';
+  const aeHtml=q.ae?`
+    <div class="expl ae-expl">
+      <div class="ae-label">✦ 추가 해설 (AI)</div>
+      ${q.ae}
+    </div>`:'';
+
+  const cnCls=isOk?'cn ok':isNg?'cn ng':'cn';
+  const cardCls=`card${isOk?' answered-ok':isNg?' answered-ng':''}`;
+  const bmCls=bookmarkSet.has(q.n)?'bm-icon on':'bm-icon';
+  return `<div class="${cardCls}" id="${id}" data-n="${q.n}">
+  <div class="ch">
+    <div class="${cnCls}">${q.n}</div>
+    <div class="ct">
+      <div class="tags">${tags}${atTag}</div>
+      <div class="qt">${q.q}</div>
+    </div>
+    <button class="${bmCls}" onclick="toggleBM(event,${q.n})" title="북마크">⭐</button>
+  </div>
+  <div class="opts" id="${id}_opts">${optHtml}</div>
+  <div class="res-bar ${resShow}" id="${id}_res">
+    <div class="ansbar">
+      <span class="albl">정답</span>
+      <span class="aval">${N[dispAns-1]} ${opts[dispAns-1]}</span>
+      <button class="rtbtn" onclick="reset('${id}')">↺ 다시풀기</button>
+    </div>
+    <div class="expl">${q.e}</div>
+    ${aeHtml}
+  </div>
+</div>`;
+}
+
+/* 보기 선택 */
+function sel(id,n,dispAns){
+  const os=document.querySelectorAll(`#${id}_opts .opt`);
+  if(os[0].classList.contains('lk'))return;
+  os.forEach(o=>o.classList.add('lk'));
+  const qn=parseInt(id.replace('q',''));
+  const isCorrect=n===dispAns;
+
+  /* 마지막 푼 문제 기록 */
+  lastSeenN=qn;
+
+  /* 시도 기록 */
+  if(!attemptMap[qn]) attemptMap[qn]={try:0,ok:0};
+  attemptMap[qn].try++;
+  if(isCorrect) attemptMap[qn].ok++;
+  /* 카드 상단 시도 표시 갱신 */
+  const atEl=document.querySelector(`#q${qn} .tg-at`);
+  if(atEl){
+    const at=attemptMap[qn];
+    atEl.textContent=`${at.ok}/${at.try}`;
+    atEl.className=`tg tg-at ${atCls(at)}`;
+  }
+
+  /* 선택 저장 */
+  selectedMap[qn]={sel:n,dispAns};
+
+  if(isCorrect){
+    document.getElementById(`${id}_p${n}`).classList.add('cor');
+    okSet.add(qn);wrongSet.delete(qn);
+    document.getElementById(id).className='card answered-ok';
+    document.querySelector(`#${id} .cn`).className='cn ok';
+  } else {
+    document.getElementById(`${id}_p${n}`).classList.add('wrg');
+    document.getElementById(`${id}_p${dispAns}`).classList.add('cor');
+    wrongSet.add(qn);okSet.delete(qn);
+    document.getElementById(id).className='card answered-ng';
+    document.querySelector(`#${id} .cn`).className='cn ng';
+  }
+
+  const res=document.getElementById(`${id}_res`);
+  res.classList.add('show');
+  renderMath(res);
+
+  upStat();
+  saveState();
+}
+
+function reset(id){
+  const n=parseInt(id.replace('q',''));
+  /* 상태 초기화 */
+  wrongSet.delete(n); okSet.delete(n); delete selectedMap[n];
+  if(shufMode) delete shufMap[id];
+  /* DOM 초기화 */
+  document.querySelectorAll(`#${id}_opts .opt`).forEach(o=>o.className='opt');
+  document.getElementById(`${id}_res`).classList.remove('show');
+  document.getElementById(id).className='card';
+  document.querySelector(`#${id} .cn`).className='cn';
+  document.getElementById(id).style.display='';
+  upStat();
+  saveState();
+  /* 오답 뷰에서 오답이 0개가 되면 전체 뷰로 전환 */
+  if(viewMode==='ng' && wrongSet.size===0) setView('all');
+}
+
+function resetAll(){
+  wrongSet.clear(); okSet.clear();
+  shufMap={}; selectedMap={}; randedOrder=null; shufMode=false;
+  /* attemptMap·bookmarkSet 유지 */
+  viewMode='all'; weakPctActive=null; lastSeenN=null; bmMode=false;
+  /* 버튼 초기화 */
+  document.getElementById('btnBM').classList.remove('on');
+  document.querySelector('#btnWeak .lbl').textContent='자주틀림';
+  updateViewBtns('all');
+  render(); upStat(); saveState();
+}
+
+function toggleMenu(){
+  document.getElementById('menuPanel').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
+}
+
+function toggleBM(e,n){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  if(bookmarkSet.has(n)){bookmarkSet.delete(n);btn.classList.remove('on');}
+  else{bookmarkSet.add(n);btn.classList.add('on');}
+  btn.blur();
+  saveState();
+  if(viewMode==='bm') setView('bm');
+}
+
+function toggleBookmark(b){
+  bmMode=!bmMode;
+  b.classList.toggle('on', bmMode);
+  if(bmMode){
+    if(bookmarkSet.size===0){
+      alert('북마크한 문제가 없어요! 문제 옆 ★을 눌러 추가하세요.');
+      bmMode=false; b.classList.remove('on'); return;
+    }
+    viewMode='bm'; applyViewFilter('bm');
+    updateViewBtns('bm');
+  } else {
+    viewMode='all'; applyViewFilter('all');
+    updateViewBtns('all');
+  }
+}
+
+function toggleFormulaSheet(){
+  const page=document.getElementById('formulaPage');
+  const isOpen=page.classList.toggle('open');
+  /* 메인 페이지 스크롤 잠금 */
+  document.body.style.overflow=isOpen?'hidden':'';
+  if(isOpen) renderFormulaSheet();
+}
+
+/* ── 공식모음 데이터 (전자기학 공식 정리) ── */
+const R=(l,m)=>`<div class="fr"><span class="fl">${l}</span><span class="fm">\\(${m}\\)</span></div>`;
+const T=t=>`<div class="fsub">${t}</div>`;
+const NT=t=>`<div class="fnote">${t}</div>`;
+const FORMULA_SHEET=[
+ {title:'1. 자계의 세기 H', html:
+  R('무한장 직선 도체',String.raw`H=\dfrac{I}{2\pi r}\ [\text{AT/m}]`)+
+  R('원형코일 중심',String.raw`H=\dfrac{NI}{2r}\ [\text{AT/m}]`)+
+  R('환상 솔레노이드 내부',String.raw`H=\dfrac{NI}{2\pi r}\ [\text{AT/m}]`)+
+  R('무한장 솔레노이드 내부',String.raw`H=n_0I\ [\text{AT/m}]`)+
+  R('점자극',String.raw`H=6.33\times10^{4}\dfrac{m}{\mu_s r^{2}}\ [\text{AT/m}]`)},
+ {title:'2. 자기력', html:
+  T('쿨롱의 법칙 (두 자극 사이의 힘)')+
+  R('',String.raw`F=6.33\times10^{4}\dfrac{m_1m_2}{\mu_s r^{2}}=\dfrac{m_1m_2}{4\pi\mu_0\mu_s r^{2}}\ [\text{N}]`)+
+  T('자극이 받는 힘')+R('',String.raw`F=mH\ [\text{N}]`)+
+  T('평행 도선 사이의 힘')+R('',String.raw`F=\dfrac{2I_1I_2}{r}\times10^{-7}\ [\text{N/m}]`)+
+  T('자계 속 도체가 받는 힘')+R('',String.raw`F=BlI\sin\theta\ [\text{N}]`)},
+ {title:'3. 자속밀도, 자기량', html:
+  R('자속밀도',String.raw`B=\mu H=\dfrac{\phi}{A}\ [\text{Wb/m}^2]`)+
+  R('자기모멘트',String.raw`M=m\ell\ [\text{Wb}\cdot\text{m}]`)+
+  R('자기력선 수',String.raw`N=\dfrac{m}{\mu}`)},
+ {title:'4. 인덕턴스', html:
+  T('유기기전력')+R('',String.raw`e=-L\dfrac{di}{dt}=-N\dfrac{d\phi}{dt}`)+
+  T('자기 인덕턴스 유도')+R('',String.raw`\phi=\dfrac{\mu ANI}{l},\quad LI=N\phi`)+
+  R('',String.raw`\Rightarrow L=\dfrac{\mu AN^{2}}{l}=\dfrac{\mu_0\mu_sAN^{2}}{l}=4\pi\times10^{-7}\dfrac{\mu_sAN^{2}}{l}\ [\text{H}]`)+
+  T('합성 인덕턴스')+R('',String.raw`L=L_1+L_2\pm2M`)+
+  NT('가동접속 +2M, 차동접속 −2M')+
+  T('결합계수')+R('',String.raw`k=\dfrac{M}{\sqrt{L_1L_2}}\quad(0\le k\le1)`)},
+ {title:'5. 자기저항', html:
+  R('',String.raw`R_m=\dfrac{F}{\phi}=\dfrac{l}{\mu A}\ [\text{AT/Wb}]`)+
+  NT('F = NI 는 기자력, 자기회로의 옴의 법칙: \\(\\phi=\\dfrac{NI}{R_m}\\)')},
+ {title:'6. 에너지', html:
+  R('코일에 저장되는 에너지',String.raw`W=\dfrac12LI^{2}\ [\text{J}]`)+
+  R('단위체적당 저장에너지',String.raw`w=\dfrac12BH=\dfrac12\mu H^{2}=\dfrac{B^{2}}{2\mu}\ [\text{J/m}^3]`)},
+ {title:'7. 철손', html:
+  R('히스테리시스손',String.raw`P_h=kfB_m^{1.6}`)+
+  R('와류손',String.raw`P_e=kf^{2}B_m^{2.0}`)},
+ {title:'💡 암기 포인트', html:
+  R('',String.raw`6.33\times10^{4}=\dfrac{1}{4\pi\mu_0}`)+
+  R('',String.raw`L\propto N^{2},\quad L\propto\dfrac{1}{l}`)+
+  NT('분모 주의: 직선 2πr / 원형코일 중심 2r / 환상 솔레노이드 2πr')}
+];
+
+function renderFormulaSheet(){
+  const body=document.getElementById('fsBody');
+  let h=FORMULA_SHEET.map(f=>`
+    <div class="fc">
+      <div class="fc-title">${f.title}</div>
+      <div class="fc-body">${f.html}</div>
+    </div>`).join('');
+  h+=QS.filter(q=>q.formula).map(q=>`
+    <div class="fc">
+      <div class="fc-title">Q${q.n}. ${q.q.replace(/<[^>]*>/g,'').substring(0,40)}${q.q.length>40?'…':''}</div>
+      <div class="fc-body">${q.formula}</div>
+    </div>`).join('');
+  body.innerHTML=h;
+  renderMath(body);
+}
+
+/* 순서섞기 — 섞인 순서를 유지 */
+function doRand(){
+  randedOrder = shuf(QS.filter(q=>q.n!=null).map(q=>q.n));
+  render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+/* 보기섞기 — 순서는 그대로, 보기 배치만 새로 섞기 */
+function doShuf(){
+  shufMap={}; shufMode=true; render();
+  setTimeout(()=>{ document.activeElement?.blur(); }, 100);
+}
+
+/* ── 주관식 렌더 ── */
+function renderSQ(){
+  const wrap=document.getElementById('sq-wrap');
+  if(!SQS.length){wrap.style.display='none';return;}
+  wrap.innerHTML=`<div class="sq-divider"><span>📝 주관식</span></div>`+SQS.map(s=>{
+    if(s.type==='fill'){
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">${s.sub||'빈칸을 채워보세요'}</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-sent">${s.sent}</div>
+    <div class="sq-btns">
+      <button class="sq-btn-check" onclick="sqCheck('${s.id}')">✓ 채점하기</button>
+      <button class="sq-btn-sub" onclick="sqShowAll('${s.id}')">정답 보기</button>
+      <button class="sq-btn-sub" onclick="sqReset('${s.id}')">↺ 다시풀기</button>
+    </div>
+    <div class="sq-score" id="${s.id}_score"></div>
+  </div>
+</div>`;
+    } else {
+      return `<div class="sq-card" id="${s.id}">
+  <div class="sq-hd">
+    <div class="sq-num">주</div>
+    <div><div class="sq-title">${s.title}</div><div class="sq-sub">공식을 떠올린 후 정답을 확인하세요</div></div>
+  </div>
+  <div class="sq-body">
+    <div class="sq-formula-box">
+      <span style="color:var(--tx3);font-size:.78rem;display:block;margin-bottom:6px;">공식을 써보세요</span>
+      <span style="color:var(--ac2);font-size:1.05rem;font-style:italic;">${s.hint}</span>
+    </div>
+    <button class="sq-show-btn" onclick="sqToggle('${s.id}',this)">🔍 정답 보기</button>
+    <div class="sq-ans-box" id="${s.id}_ans">${s.ans}</div>
+  </div>
+</div>`;
+    }
+  }).join('');
+  /* 번호 순서대로 주N 표시 */
+  wrap.querySelectorAll('.sq-num').forEach((el,i)=>el.textContent='주'+(i+1));
+  renderMath(wrap);
+}
+
+function sqCheck(id){
+  const sc=document.getElementById(`${id}_score`);
+  const inps=sc.closest('.sq-body').querySelectorAll('.sq-inp');
+  let ok=0;
+  inps.forEach(inp=>{
+    inp.classList.remove('cor','wrg');
+    if(inp.value.trim()===inp.dataset.ans){inp.classList.add('cor');ok++;}
+    else inp.classList.add('wrg');
+  });
+  sc.className='sq-score '+(ok===inps.length?'ok':'ng');
+  sc.textContent=ok===inps.length?'🎉 모두 정답!':`${ok} / ${inps.length} 정답 — 틀린 칸을 확인해보세요`;
+}
+function sqShowAll(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.remove('wrg');inp.classList.add('cor');});
+  sc.className='sq-score ok';sc.textContent='정답을 확인했습니다 ✓';
+}
+function sqReset(id){
+  const sc=document.getElementById(`${id}_score`);
+  sc.closest('.sq-body').querySelectorAll('.sq-inp').forEach(inp=>{inp.value='';inp.classList.remove('cor','wrg');});
+  sc.className='sq-score';sc.textContent='';
+}
+function sqToggle(id,btn){
+  const box=document.getElementById(`${id}_ans`);
+  const showing=box.classList.toggle('show');
+  btn.textContent=showing?'🙈 정답 숨기기':'🔍 정답 보기';
+  if(showing) renderMath(box);
+}
+
+/* 터치 기기 :active 고착 방지 — touchend 후 0.1초 뒤 blur */
+document.addEventListener('touchend', e=>{
+  const btn=e.target.closest('button,.stat-btn');
+  if(btn) setTimeout(()=>btn.blur(), 100);
+}, {passive:true});
+
+/* 초기화 */
+loadState();
+render();
+renderSQ();
+
+/* 마지막 푼 문제로 스크롤 */
+if(lastSeenN){
+  requestAnimationFrame(()=>{
+    const el=document.getElementById('q'+lastSeenN);
+    if(el) el.scrollIntoView({behavior:'instant',block:'center'});
+  });
+}
+
+/* 맨 위로 버튼 — 화면 높이 2배 이상 스크롤 시 표시 */
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('topBtn');
+  btn.classList.toggle('visible', window.scrollY > 300);
+},{passive:true});
+
+/* ── 답 전체보기 (보기 전용 · 풀이 기록에 반영 안 됨) ── */
+let revealAll=false;
+function revealCard(card){
+  if(card.dataset.rv||card.classList.contains('answered-ok')||card.classList.contains('answered-ng')) return;
+  const os=card.querySelectorAll('.opts .opt');
+  if(!os.length||os[0].classList.contains('lk')) return;
+  const m=(os[0].getAttribute('onclick')||'').match(/,(\d+)\)/);
+  if(!m) return;
+  os.forEach(o=>o.classList.add('lk'));
+  const ca=card.querySelector('#'+card.id+'_p'+m[1]); if(ca) ca.classList.add('cor');
+  const res=document.getElementById(card.id+'_res');
+  if(res){res.classList.add('show');renderMath(res);}
+  card.dataset.rv='1';
+}
+function unrevealCard(card){
+  if(!card.dataset.rv) return;
+  card.querySelectorAll('.opts .opt').forEach(o=>o.className='opt');
+  const res=document.getElementById(card.id+'_res'); if(res) res.classList.remove('show');
+  delete card.dataset.rv;
+}
+function applyReveal(){
+  document.querySelectorAll('#main .card').forEach(c=>revealAll?revealCard(c):unrevealCard(c));
+  document.getElementById('btnReveal').classList.toggle('on',revealAll);
+}
+function toggleReveal(){revealAll=!revealAll;applyReveal();}
+(function(){const _r=render;render=function(){_r.apply(this,arguments);if(revealAll)applyReveal();};})();
+</script>
+</body>
+</html>
